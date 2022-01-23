@@ -1,6 +1,6 @@
 module.exports = {
   mode: 'jit',
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './ui/**/*.{js,ts,jsx,tsx}'],
+  purge: ['src/pages/**/*.{js,ts,jsx,tsx}', 'src/components/**/*.{js,ts,jsx,tsx}', 'src/ui/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
@@ -17,7 +17,7 @@ module.exports = {
         },
       },
     },
-    
+
     fontFamily: {
       montserrat: ['Montserrat', 'sans-serif'],
       cabin: ['Cabin', 'serif'],
@@ -27,4 +27,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};
