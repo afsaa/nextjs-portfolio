@@ -15,6 +15,9 @@ module.exports = {
           DEFAULT: '#0084ef',
           dark: '#004278',
         },
+        carrara: '#f5f6f3',
+        rodeoDust: '#cab595',
+        mirage: '#1b2437',
       },
     },
 
