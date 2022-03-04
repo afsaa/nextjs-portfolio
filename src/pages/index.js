@@ -1,6 +1,7 @@
-import Navbar from '@/components/Navbar';
+import Head from 'next/head';
+import ContainerBlock from '@/components/ContainerBlock';
 
-const links = [
+const navItems = [
   {
     id: 1,
     pathname: '/',
@@ -25,8 +26,8 @@ const links = [
 
 export default function Home() {
   return (
-    <div>
-      <Navbar navLinks={links} />
-    </div>
+    <ContainerBlock title="Andres Fernando Saa - Developer" navItems={navItems}>
+      <h1>Hero!</h1>
+    </ContainerBlock>
   );
 }
