@@ -23,7 +23,7 @@ module.exports = {
 
     fontFamily: {
       montserrat: ['Montserrat', 'sans-serif'],
-      cabin: ['Cabin', 'serif'],
+      cabin: ['Cabin', 'sans-serif'],
     },
   },
   variants: {

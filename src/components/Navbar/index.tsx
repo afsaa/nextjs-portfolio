@@ -27,7 +27,7 @@ const Navbar = ({ navItems }: { navItems?: Array<any> }) => {
         ))}
       </div>
       <div className="md:hidden cursor-pointer" onClick={() => handleToggleMenu()}>
-        <Icon className="" icon={<GiHamburgerMenu />} fontSize="25px" color="black" />
+        <Icon className="text-carrara" icon={<GiHamburgerMenu />} fontSize="25px" color="" />
       </div>
     </nav>
   );

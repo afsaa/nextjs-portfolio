@@ -1,11 +1,12 @@
-import React from 'react'
+import Head from 'next/head';
+import ContainerBlock from '@/components/ContainerBlock';
 
-const about = () => {
-    return (
-        <div>
-            <h1>About</h1>
-        </div>
-    )
-}
+const about = ({ navItems }) => {
+  return (
+    <ContainerBlock title="Andres Fernando Saa - About" navItems={navItems}>
+      <h1>About</h1>
+    </ContainerBlock>
+  );
+};
 
 export default about;

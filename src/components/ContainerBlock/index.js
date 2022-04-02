@@ -9,7 +9,7 @@ export default function ContainerBlock({ children, navItems, ...customMeta }) {
   const router = useRouter();
 
   const meta = {
-    title: 'Andres Fernando Saa - Developer, Personal Finance Enthusiast',
+    title: 'Andres Fernando Saa - Frontend Developer, Personal Finance Enthusiast',
     description: `I've been developing websites and web apps for 3 years straight. Get in touch with me to know more.`,
     image: '/avatar.png',
     type: 'website',
@@ -47,7 +47,7 @@ export default function ContainerBlock({ children, navItems, ...customMeta }) {
 ContainerBlock.propTypes = {
   children: PropTypes.node.isRequired,
   customMeta: PropTypes.object,
-  navItems: PropTypes.object,
+  navItems: PropTypes.arrayOf(PropTypes.object),
 };
 
 ContainerBlock.defaultProps = {
