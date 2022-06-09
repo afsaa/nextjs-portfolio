@@ -5,24 +5,29 @@ import PropTypes from 'prop-types';
 import profilePic from '../../public/me.jpg';
 import Button from '../../ui/button';
 
-const Hero = () => {
+const Hero = ({ name, role, description, imgSrc }) => {
   const router = useRouter();
 
   return (
     <div className="py-5 px-10 flex items-center justify-around">
       <div className="flex flex-col items-start">
-        <h1 className="mb-10 text-6xl text-mirage font-montserrat">Andres Fernando Saa</h1>
-        <h2 className="mb-5 text-3xl text-primary font-cabin font-bold">Desarrollador Frontend</h2>
-        <h4 className="text-lg text-mirage font-montserrat">Creando experiencias de usuario vistosas y satisfactorias.</h4>
+        <h1 className="mb-10 text-6xl text-mirage font-montserrat">{name || 'Andrés Fernando Saa'}</h1>
+        <h2 className="mb-5 text-3xl text-primary font-cabin font-bold">{role || 'Desarrollador Frontend'}</h2>
+        <h4 className="text-lg text-mirage font-montserrat">{description || 'Creando experiencias de usuario vistosas y satisfactorias.'}</h4>
         <Button text="Ver más" bg="mirage" color="white" onClick={() => router.push('/about')} />
       </div>
       <div>
-        <Image className="rounded-md drop-shadow-xl" src={profilePic} alt="Photo of me" width={500} height={500} />
+        <Image className="rounded-md drop-shadow-xl" src={imgSrc || profilePic} alt="Photo of me" width={500} height={500} />
       </div>
     </div>
   );
 };
 
-Hero.propTypes = {};
+Hero.propTypes = {
+  name: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  imgSrc: PropTypes.string,
+};
 
 export default Hero;
