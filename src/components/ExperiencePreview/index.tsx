@@ -1,10 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Markdown from 'markdown-to-jsx';
 import Button from '../../ui/button';
 
-const ExperiencePreview = ({ heading, description }) => {
+type IExperiencePreview = {
+  heading: string;
+  description: string;
+};
+
+const ExperiencePreview = ({ heading, description }: IExperiencePreview) => {
   const router = useRouter();
 
   return (
@@ -18,15 +22,10 @@ const ExperiencePreview = ({ heading, description }) => {
         </div>
       </article>
       <div className="my-5 flex items-center justify-center">
-        <Button text="See more" bg="black" color="white" onClick={() => router.push('/exp&projects')} />
+        <Button text="See more" bg="black" color="white" onClick={() => router.push('/exp-and-projects')} />
       </div>
     </section>
   );
-};
-
-ExperiencePreview.propTypes = {
-  heading: PropTypes.string,
-  description: PropTypes.string,
 };
 
 export default ExperiencePreview;

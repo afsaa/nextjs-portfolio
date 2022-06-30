@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import Link from 'next/link';
 
-import NavItem from './partials/NavItem';
+import NavItem, { INavItem } from './partials/NavItem';
 import Icon from '@/ui/icon';
 
-const Navbar = ({ navItems }: { navItems?: Array<any> }) => {
+const Navbar = ({ navItems }: { navItems?: Array<INavItem> }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const handleToggleMenu = () => {

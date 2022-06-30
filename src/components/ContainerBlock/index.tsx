@@ -1,11 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Navbar from '@/components/Navbar';
-// import Footer from './Footer';
 
-export default function ContainerBlock({ children, navItems, ...customMeta }) {
+import Navbar from '@/components/Navbar';
+import { INavItem } from '../Navbar/partials/NavItem';
+
+type IContainerBlock = {
+  children: ReactNode;
+  navItems: INavItem[];
+  customMeta?: object;
+};
+
+function ContainerBlock({ children, navItems, ...customMeta }) {
   const router = useRouter();
 
   const meta = {
@@ -33,7 +39,6 @@ export default function ContainerBlock({ children, navItems, ...customMeta }) {
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
-        {meta.date && <meta property="article:published_time" content={meta.date} />}
       </Head>
       <main className="dark:bg-gray-800 w-full">
         <Navbar navItems={navItems} />
@@ -44,18 +49,4 @@ export default function ContainerBlock({ children, navItems, ...customMeta }) {
   );
 }
 
-ContainerBlock.propTypes = {
-  children: PropTypes.node.isRequired,
-  customMeta: PropTypes.object,
-  navItems: PropTypes.arrayOf(PropTypes.object),
-};
-
-ContainerBlock.defaultProps = {
-  customMeta: {
-    title: '',
-    description: '',
-    image: '',
-    type: '',
-  },
-  navItems: [{}],
-};
+export default ContainerBlock;
