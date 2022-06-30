@@ -20,7 +20,7 @@ const Hero = ({ name, role, description, imgSrc }: IHero) => {
         <h1 className="mb-10 text-6xl text-mirage font-montserrat">{name}</h1>
         <h2 className="mb-5 text-3xl text-primary font-cabin font-bold">{role}</h2>
         <h4 className="mb-5 text-lg text-mirage font-montserrat">{description}</h4>
-        <Button text="See more" bg="black" color="white" onClick={() => router.push('/about')} />
+        <Button text="See more" primary onClick={() => router.push('/about')} />
       </div>
       <div>
         <Image className="rounded-md drop-shadow-xl" src={imgSrc || profilePic} alt="Photo of me" width={500} height={500} />

@@ -22,7 +22,7 @@ const ExperiencePreview = ({ heading, description }: IExperiencePreview) => {
         </div>
       </article>
       <div className="my-5 flex items-center justify-center">
-        <Button text="See more" bg="black" color="white" onClick={() => router.push('/exp-and-projects')} />
+        <Button text="See more" onClick={() => router.push('/exp-and-projects')} />
       </div>
     </section>
   );
