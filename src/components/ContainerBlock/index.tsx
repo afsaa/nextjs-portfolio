@@ -11,7 +11,7 @@ type IContainerBlock = {
   customMeta?: object;
 };
 
-function ContainerBlock({ children, navItems, ...customMeta }) {
+function ContainerBlock({ children, navItems, ...customMeta }: IContainerBlock) {
   const router = useRouter();
 
   const meta = {

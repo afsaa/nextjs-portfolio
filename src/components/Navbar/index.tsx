@@ -13,16 +13,12 @@ const Navbar = ({ navItems }: { navItems?: Array<INavItem> }) => {
   };
 
   return (
-    <nav
-      className="p-5 md:p-20 flex items-center justify-between bg-primary opacity-75
-
-"
-    >
+    <nav className="mb-10 p-5 md:p-20 flex items-center justify-between bg-primary opacity-75 shadow-xl">
       <Link href="/">
         <a className="font-montserrat font-semibold text-2xl text-carrara">AFSAA</a>
       </Link>
       <div className={`${toggleMenu && 'hidden'} absolute top-16 left-56 md:static md:flex transition-all bg-primary`}>
-        {navItems.map(({ id, title, pathname }) => (
+        {navItems?.map(({ id, title, pathname }) => (
           <NavItem id={id} title={title} pathname={pathname} />
         ))}
       </div>
