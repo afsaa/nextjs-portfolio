@@ -15,14 +15,14 @@ const Hero = ({ name, role, description, imgSrc }: IHero) => {
   const router = useRouter();
 
   return (
-    <section className="py-5 px-10 flex items-center justify-around">
-      <div className="flex flex-col items-start">
+    <section className="m-0 md:my-4 px-10 py-5 md:py-10 flex flex-wrap items-center justify-around md:flex-nowrap">
+      <div className="w-full md:w-auto flex flex-col items-start">
         <h1 className="mb-10 text-6xl text-mirage font-montserrat">{name}</h1>
         <h2 className="mb-5 text-3xl text-primary font-cabin font-bold">{role}</h2>
         <h4 className="mb-5 text-lg text-mirage font-montserrat">{description}</h4>
         <Button text="See more" primary onClick={() => router.push('/about')} />
       </div>
-      <div>
+      <div className="w-full md:w-auto mt-10 md:ml-2 flex items-center justify-center">
         <Image className="rounded-md drop-shadow-xl" src={imgSrc || profilePic} alt="Photo of me" width={500} height={500} />
       </div>
     </section>

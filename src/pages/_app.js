@@ -12,7 +12,6 @@ function MyApp({ Component, pageProps }) {
       title: navItem.fields.title,
     };
   });
-  console.log(navItems);
   return <Component navItems={navItems} {...pageProps} />;
 }
 
