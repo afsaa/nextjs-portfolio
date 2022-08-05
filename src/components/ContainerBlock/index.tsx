@@ -5,11 +5,11 @@ import { useRouter } from 'next/router';
 import Navbar from '@/components/Navbar';
 import { INavItem } from '../Navbar/partials/NavItem';
 
-type IContainerBlock = {
+interface IContainerBlock {
   children: ReactNode;
   navItems: INavItem[];
   customMeta?: object;
-};
+}
 
 function ContainerBlock({ children, navItems, ...customMeta }: IContainerBlock) {
   const router = useRouter();

@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import Markdown from 'markdown-to-jsx';
 import Button from '../../ui/button';
 
-type IExperiencePreview = {
+interface IExperiencePreview {
   heading: string;
   description: string;
-};
+}
 
 const ExperiencePreview = ({ heading, description }: IExperiencePreview) => {
   const router = useRouter();

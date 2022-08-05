@@ -1,6 +1,11 @@
 import React from 'react';
 
-type IButton = { type?: 'button' | 'submit' | 'reset'; text: string; primary?: boolean; onClick: React.MouseEventHandler<HTMLButtonElement> };
+interface IButton {
+  type?: 'button' | 'submit' | 'reset';
+  text: string;
+  primary?: boolean;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}
 
 const Button = ({ type, text, primary, onClick }: IButton) => {
   return (
