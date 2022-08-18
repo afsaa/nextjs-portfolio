@@ -11,7 +11,7 @@ import { SiGit } from 'react-icons/si';
 
 const about = ({ navItems }) => {
   return (
-    <ContainerBlock title="Andres Fernando Saa - About" navItems={navItems}>
+    <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - About' }} navItems={navItems}>
       <ArticleSection
         sectionHeading="ABOUT ME"
         articleContent={

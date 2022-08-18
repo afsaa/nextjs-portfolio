@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "baseUrl": "src",
+    "baseUrl": "./src/",
     "paths": {
       "@/ui/*": ["ui/*"],
       "@/components/*": ["components/*"],
@@ -22,6 +22,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/exp-and-projects.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/exp-and-projects.tsx"],
   "exclude": ["node_modules"]
 }
