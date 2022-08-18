@@ -1,18 +1,15 @@
 import 'tailwindcss/tailwind.css';
-import useSWR from 'swr';
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import { ApolloProvider } from '@apollo/client';
+import { useApollo } from '../utils/apolloClient';
 
 function MyApp({ Component, pageProps }) {
-  const { data: contentTypeEntries } = useSWR(`api/contentful/content-types/navigation`, fetcher);
-  const navItems = contentTypeEntries?.items?.map((navItem) => {
-    return {
-      id: navItem.sys.id,
-      pathname: navItem.fields.pathname,
-      title: navItem.fields.title,
-    };
-  });
-  return <Component navItems={navItems} {...pageProps} />;
+  const apolloClient = useApollo(pageProps);
+
+  return (
+    <ApolloProvider client={apolloClient}>
+      <Component {...pageProps} />
+    </ApolloProvider>
+  );
 }
 
 export default MyApp;
