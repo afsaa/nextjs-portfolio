@@ -1,0 +1,21 @@
+query GetAllExps {
+  experienceCollection {
+    items {
+      sys {
+        id
+        publishedAt
+      }
+      contentfulMetadata {
+        tags {
+          id
+          name
+        }
+      }
+      jobTitle
+      companyName
+      description {
+        json
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+overwrite: true
+schema:
+  - https://graphql.contentful.com/content/v1/spaces/${NEXT_PUBLIC_SPACE_ID}/environments/${NEXT_PUBLIC_ENVIRONMENT}:
+      headers:
+        Authorization: 'Bearer ${NEXT_PUBLIC_CDA_ACCESS_TOKEN}'
+documents: 'src/generated/queries.graphql'
+generates:
+  src/generated/graphql.tsx:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
