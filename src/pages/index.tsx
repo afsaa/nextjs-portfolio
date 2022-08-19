@@ -6,7 +6,6 @@ import ErrorContainer from '@/ui/error';
 import DescriptionWithCTA from '@/ui/descriptionWithCTA';
 import ImageContainer from '@/ui/imageContainer';
 import ExperiencePreview from '@/components/ExperiencePreview';
-import useSWR from 'swr';
 
 const navigationQuery = gql`
   query {
@@ -19,26 +18,47 @@ const navigationQuery = gql`
   }
 `;
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+const userQuery = gql`
+  query {
+    user(id: "6mIZi967LZB1ytpguyNOR6") {
+      name
+      role
+      summary
+      profilePicture {
+        title
+        url
+      }
+    }
+  }
+`;
+
+const expPreviewQuery = gql`
+  query {
+    preview(id: "3JSTlKWt2HIcX4biS1eSqk") {
+      experienceHeading
+      experienceDescription
+    }
+  }
+`;
 
 export default function Home() {
-  const { data } = useQuery(navigationQuery);
-  const { data: heroData, error: heroError } = useSWR(`api/contentful/entries/6mIZi967LZB1ytpguyNOR6`, fetcher);
-  const { data: experiencePreviewData, error: experiencePreviewError } = useSWR(`api/contentful/entries/3JSTlKWt2HIcX4biS1eSqk`, fetcher);
+  const { data: navigationData } = useQuery(navigationQuery);
+  const { error: heroError, data: userData } = useQuery(userQuery);
+  const { data: expPreviewData } = useQuery(expPreviewQuery);
 
   return (
-    <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Frontend Developer' }} navItems={data?.navigationCollection?.items}>
+    <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Frontend Developer' }} navItems={navigationData?.navigationCollection?.items}>
       <Hero
         error={heroError}
         onError={() => <ErrorContainer />}
         render={() => (
           <>
-            <DescriptionWithCTA fields={heroData?.fields} redirectUrl="/about" />
-            <ImageContainer fields={heroData?.fields} />
+            <DescriptionWithCTA fields={userData?.user} redirectUrl="/about" />
+            <ImageContainer profilePicture={userData?.user?.profilePicture} />
           </>
         )}
       />
-      <ExperiencePreview heading={experiencePreviewData?.fields?.experienceHeading} description={experiencePreviewData?.fields?.experienceDescription} />
+      <ExperiencePreview heading={expPreviewData?.preview?.experienceHeading} description={expPreviewData?.preview?.experienceDescription} />
     </ContainerBlock>
   );
 }

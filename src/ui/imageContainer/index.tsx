@@ -1,28 +1,17 @@
 import React from 'react';
 import Image from 'next/image';
 
-interface IImageContainer {
-  fields?: {
-    profilePicture?: {
-      fields?: {
-        file?: {
-          url?: string;
-        };
-      };
-    };
+interface IProfilePicture {
+  profilePicture?: {
+    url?: string;
+    description?: string;
   };
 }
 
-const ImageContainer = ({ fields }: IImageContainer) => {
+const ImageContainer = ({ profilePicture }: IProfilePicture) => {
   return (
     <div className="w-full md:w-auto mt-10 md:ml-2 flex items-center justify-center">
-      <Image
-        className="rounded-md drop-shadow-xl"
-        src={fields?.profilePicture?.fields?.file?.url ? `https:${fields.profilePicture.fields.file?.url}` : '/me.jpg'}
-        alt="Photo of me"
-        width={500}
-        height={500}
-      />
+      <Image className="rounded-md drop-shadow-xl" src={profilePicture?.url || '/me.jpg'} alt={profilePicture?.description || 'Photo of me'} width={500} height={500} />
     </div>
   );
 };

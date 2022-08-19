@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Markdown from 'markdown-to-jsx';
-import Button from '../../ui/button';
+import Button from '@/ui/button';
 
 interface IExperiencePreview {
   heading: string;
