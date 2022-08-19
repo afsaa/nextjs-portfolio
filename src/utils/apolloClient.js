@@ -18,7 +18,7 @@ const httpLink = new HttpLink({
   uri: 'https://graphql.contentful.com/content/v1/spaces/6lbi1puzqh8m', // Server URL (must be absolute)
   credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
   headers: {
-    Authorization: 'Bearer RnMiRYFGGgzfA8UwSphFSSDIMpnYE-6QmqfTFUi7xCQ',
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_CDA_ACCESS_TOKEN}`,
   },
 });
 
