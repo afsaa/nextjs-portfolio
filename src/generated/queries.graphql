@@ -1,3 +1,34 @@
+query GetNavigation {
+  navigationCollection(order: sys_publishedAt_ASC) {
+    items {
+      sys {
+        id
+      }
+      title
+      pathname
+    }
+  }
+}
+
+query GetUser($userId: String!) {
+  user(id: $userId) {
+    name
+    role
+    summary
+    profilePicture {
+      title
+      url
+    }
+  }
+}
+
+query GetExpPreview($previewId: String!) {
+  preview(id: $previewId) {
+    experienceHeading
+    experienceDescription
+  }
+}
+
 query GetAllExps {
   experienceCollection {
     items {

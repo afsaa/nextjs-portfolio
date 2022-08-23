@@ -1,50 +1,16 @@
 import Head from 'next/head';
-import { gql, useQuery } from '@apollo/client';
 import ContainerBlock from '@/components/ContainerBlock';
 import Hero from '@/components/Hero';
 import ErrorContainer from '@/ui/error';
 import DescriptionWithCTA from '@/ui/descriptionWithCTA';
 import ImageContainer from '@/ui/imageContainer';
 import ExperiencePreview from '@/components/ExperiencePreview';
-
-const navigationQuery = gql`
-  query {
-    navigationCollection(order: sys_publishedAt_ASC) {
-      items {
-        title
-        pathname
-      }
-    }
-  }
-`;
-
-const userQuery = gql`
-  query {
-    user(id: "6mIZi967LZB1ytpguyNOR6") {
-      name
-      role
-      summary
-      profilePicture {
-        title
-        url
-      }
-    }
-  }
-`;
-
-const expPreviewQuery = gql`
-  query {
-    preview(id: "3JSTlKWt2HIcX4biS1eSqk") {
-      experienceHeading
-      experienceDescription
-    }
-  }
-`;
+import { useGetExpPreviewQuery, useGetNavigationQuery, useGetUserQuery } from '../generated/graphql';
 
 export default function Home() {
-  const { data: navigationData } = useQuery(navigationQuery);
-  const { error: heroError, data: userData } = useQuery(userQuery);
-  const { data: expPreviewData } = useQuery(expPreviewQuery);
+  const { loading: navigationLoading, error: navigationError, data: navigationData } = useGetNavigationQuery();
+  const { loading: heroLoading, error: heroError, data: userData } = useGetUserQuery({ variables: { userId: '6mIZi967LZB1ytpguyNOR6' } });
+  const { loading: expPreviewLoading, error: expPreviewError, data: expPreviewData } = useGetExpPreviewQuery({ variables: { previewId: '3JSTlKWt2HIcX4biS1eSqk' } });
 
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Frontend Developer' }} navItems={navigationData?.navigationCollection?.items}>

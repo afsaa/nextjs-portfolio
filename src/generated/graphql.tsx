@@ -1420,12 +1420,148 @@ export enum UserOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
+export type GetNavigationQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetNavigationQuery = { __typename?: 'Query', navigationCollection?: { __typename?: 'NavigationCollection', items: Array<{ __typename?: 'Navigation', title?: string | null, pathname?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null };
+
+export type GetUserQueryVariables = Exact<{
+  userId: Scalars['String'];
+}>;
+
+
+export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', name?: string | null, role?: string | null, summary?: string | null, profilePicture?: { __typename?: 'Asset', title?: string | null, url?: string | null } | null } | null };
+
+export type GetExpPreviewQueryVariables = Exact<{
+  previewId: Scalars['String'];
+}>;
+
+
+export type GetExpPreviewQuery = { __typename?: 'Query', preview?: { __typename?: 'Preview', experienceHeading?: string | null, experienceDescription?: string | null } | null };
+
 export type GetAllExpsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllExpsQuery = { __typename?: 'Query', experienceCollection?: { __typename?: 'ExperienceCollection', items: Array<{ __typename?: 'Experience', jobTitle?: string | null, companyName?: string | null, sys: { __typename?: 'Sys', id: string, publishedAt?: any | null }, contentfulMetadata: { __typename?: 'ContentfulMetadata', tags: Array<{ __typename?: 'ContentfulTag', id?: string | null, name?: string | null } | null> }, description?: { __typename?: 'ExperienceDescription', json: any } | null } | null> } | null };
 
 
+export const GetNavigationDocument = gql`
+    query GetNavigation {
+  navigationCollection(order: sys_publishedAt_ASC) {
+    items {
+      sys {
+        id
+      }
+      title
+      pathname
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetNavigationQuery__
+ *
+ * To run a query within a React component, call `useGetNavigationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetNavigationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetNavigationQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetNavigationQuery(baseOptions?: Apollo.QueryHookOptions<GetNavigationQuery, GetNavigationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetNavigationQuery, GetNavigationQueryVariables>(GetNavigationDocument, options);
+      }
+export function useGetNavigationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetNavigationQuery, GetNavigationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetNavigationQuery, GetNavigationQueryVariables>(GetNavigationDocument, options);
+        }
+export type GetNavigationQueryHookResult = ReturnType<typeof useGetNavigationQuery>;
+export type GetNavigationLazyQueryHookResult = ReturnType<typeof useGetNavigationLazyQuery>;
+export type GetNavigationQueryResult = Apollo.QueryResult<GetNavigationQuery, GetNavigationQueryVariables>;
+export const GetUserDocument = gql`
+    query GetUser($userId: String!) {
+  user(id: $userId) {
+    name
+    role
+    summary
+    profilePicture {
+      title
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserQuery__
+ *
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetUserQuery(baseOptions: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+      }
+export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+        }
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
+export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
+export const GetExpPreviewDocument = gql`
+    query GetExpPreview($previewId: String!) {
+  preview(id: $previewId) {
+    experienceHeading
+    experienceDescription
+  }
+}
+    `;
+
+/**
+ * __useGetExpPreviewQuery__
+ *
+ * To run a query within a React component, call `useGetExpPreviewQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetExpPreviewQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetExpPreviewQuery({
+ *   variables: {
+ *      previewId: // value for 'previewId'
+ *   },
+ * });
+ */
+export function useGetExpPreviewQuery(baseOptions: Apollo.QueryHookOptions<GetExpPreviewQuery, GetExpPreviewQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetExpPreviewQuery, GetExpPreviewQueryVariables>(GetExpPreviewDocument, options);
+      }
+export function useGetExpPreviewLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetExpPreviewQuery, GetExpPreviewQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetExpPreviewQuery, GetExpPreviewQueryVariables>(GetExpPreviewDocument, options);
+        }
+export type GetExpPreviewQueryHookResult = ReturnType<typeof useGetExpPreviewQuery>;
+export type GetExpPreviewLazyQueryHookResult = ReturnType<typeof useGetExpPreviewLazyQuery>;
+export type GetExpPreviewQueryResult = Apollo.QueryResult<GetExpPreviewQuery, GetExpPreviewQueryVariables>;
 export const GetAllExpsDocument = gql`
     query GetAllExps {
   experienceCollection {
