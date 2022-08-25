@@ -5,7 +5,7 @@ import Link from 'next/link';
 import NavItem, { INavItem } from './partials/NavItem';
 import Icon from '@/ui/icon';
 
-const Navbar = ({ navItems }: { navItems?: Array<INavItem> }) => {
+const Navbar = ({ navItems }: { navItems?: INavItem[] }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const handleToggleMenu = () => {
@@ -18,8 +18,8 @@ const Navbar = ({ navItems }: { navItems?: Array<INavItem> }) => {
         <a className="font-montserrat font-semibold text-2xl text-carrara">AFSAA</a>
       </Link>
       <div className={`${toggleMenu && 'hidden'} absolute top-16 left-56 md:static md:flex transition-all bg-primary`}>
-        {navItems?.map(({ id, title, pathname }) => (
-          <NavItem id={id} title={title} pathname={pathname} />
+        {navItems?.map(({ sys, title, pathname }) => (
+          <NavItem key={sys?.id} title={title} pathname={pathname} />
         ))}
       </div>
       <div className="md:hidden cursor-pointer" onClick={() => handleToggleMenu()}>
