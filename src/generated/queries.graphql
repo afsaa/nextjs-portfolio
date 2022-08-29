@@ -30,7 +30,7 @@ query GetExpPreview($previewId: String!) {
 }
 
 query GetAllExps {
-  experienceCollection {
+  experienceCollection(order: sys_firstPublishedAt_ASC) {
     items {
       sys {
         id

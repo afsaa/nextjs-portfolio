@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@contentful/rich-text-react-renderer": "^15.12.1",
     "@graphql-codegen/typed-document-node": "^2.3.3",
     "contentful": "^9.1.32",
     "deepmerge": "^4.2.2",
