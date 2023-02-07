@@ -50,3 +50,25 @@ query GetAllExps {
     }
   }
 }
+
+query GetAllExpsByLocale($localeId: String!) {
+  experienceCollection(order: sys_firstPublishedAt_ASC, locale: $localeId) {
+    items {
+      sys {
+        id
+        publishedAt
+      }
+      contentfulMetadata {
+        tags {
+          id
+          name
+        }
+      }
+      jobTitle
+      companyName
+      description {
+        json
+      }
+    }
+  }
+}

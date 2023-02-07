@@ -14,7 +14,7 @@ const Navbar = ({ navItems }: { navItems?: INavItem[] }) => {
 
   return (
     <nav className="mb-10 p-5 md:p-20 flex items-center justify-between bg-primary opacity-75 shadow-xl">
-      <Link href="/">
+      <Link href="/" legacyBehavior>
         <a className="font-montserrat font-semibold text-2xl text-carrara">AFSAA</a>
       </Link>
       <div className={`${toggleMenu && 'hidden'} absolute top-16 left-56 md:static md:flex transition-all bg-primary`}>

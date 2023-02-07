@@ -8,10 +8,39 @@ import { SiJavascript } from 'react-icons/si';
 import { SiReact } from 'react-icons/si';
 import { SiRedux } from 'react-icons/si';
 import { SiGit } from 'react-icons/si';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { createApolloClient } from '../utils/apolloClient';
+import { GetNavigationDocument } from '../generated/graphql';
 
-const about = ({ navItems }) => {
+export const getStaticProps: GetStaticProps<{ navigationData: Navigation[] }> = async () => {
+  try {
+    const client = createApolloClient();
+    const navigationResponse = await client.query({
+      query: GetNavigationDocument,
+    });
+
+    if (navigationResponse.data.navigationCollection === null) {
+      throw new Error('Failed to fetch navigation');
+    }
+
+    const navigationData = navigationResponse.data.navigationCollection.items as Navigation[];
+    return {
+      props: {
+        navigationData,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        navigationData: [],
+      },
+    };
+  }
+};
+
+const about = ({ navigationData }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - About' }} navItems={navItems}>
+    <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - About' }} navItems={navigationData}>
       <ArticleSection
         sectionHeading="ABOUT ME"
         articleContent={
