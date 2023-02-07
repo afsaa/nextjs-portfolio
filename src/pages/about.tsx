@@ -12,11 +12,12 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { createApolloClient } from '../utils/apolloClient';
 import { GetNavigationDocument } from '../generated/graphql';
 
-export const getStaticProps: GetStaticProps<{ navigationData: Navigation[] }> = async () => {
+export const getStaticProps: GetStaticProps<{ navigationData: Navigation[] }> = async ({ locale }) => {
   try {
     const client = createApolloClient();
     const navigationResponse = await client.query({
       query: GetNavigationDocument,
+      variables: { locale },
     });
 
     if (navigationResponse.data.navigationCollection === null) {

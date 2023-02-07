@@ -5,15 +5,16 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { createApolloClient } from '../utils/apolloClient';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 
-export const getStaticProps: GetStaticProps<{ expsData: Experience[]; navigationData: Navigation[] }> = async () => {
+export const getStaticProps: GetStaticProps<{ expsData: Experience[]; navigationData: Navigation[] }> = async ({ locale }) => {
   try {
     const client = createApolloClient();
     const getAllExpsByLocalResponse = await client.query({
       query: GetAllExpsByLocaleDocument,
-      variables: { localeId: 'es-CO' },
+      variables: { locale },
     });
     const navigationResponse = await client.query({
       query: GetNavigationDocument,
+      variables: { locale },
     });
 
     if (getAllExpsByLocalResponse.data.experienceCollection === null) {

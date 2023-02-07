@@ -9,19 +9,20 @@ import { GetNavigationDocument, GetUserDocument, GetExpPreviewDocument, Navigati
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { createApolloClient } from '../utils/apolloClient';
 
-export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; userData: User; expPreviewData: Preview }> = async () => {
+export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; userData: User; expPreviewData: Preview }> = async ({ locale }) => {
   try {
     const client = createApolloClient();
     const navigationResponse = await client.query({
       query: GetNavigationDocument,
+      variables: { locale },
     });
     const userResponse = await client.query({
       query: GetUserDocument,
-      variables: { userId: '6mIZi967LZB1ytpguyNOR6' },
+      variables: { userId: '6mIZi967LZB1ytpguyNOR6', locale },
     });
     const expPreviewResponse = await client.query({
       query: GetExpPreviewDocument,
-      variables: { previewId: '3JSTlKWt2HIcX4biS1eSqk' },
+      variables: { previewId: '3JSTlKWt2HIcX4biS1eSqk', locale },
     });
 
     if (navigationResponse.data.navigationCollection === null) {
