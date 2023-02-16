@@ -1,4 +1,4 @@
-query GetNavigation($locale: String!) {
+query GetNavigation($locale: String) {
   navigationCollection(order: sys_publishedAt_ASC, locale: $locale) {
     items {
       sys {
@@ -10,7 +10,7 @@ query GetNavigation($locale: String!) {
   }
 }
 
-query GetUser($userId: String!, $locale: String!) {
+query GetUser($userId: String!, $locale: String) {
   user(id: $userId, locale: $locale) {
     name
     role
@@ -22,14 +22,14 @@ query GetUser($userId: String!, $locale: String!) {
   }
 }
 
-query GetExpPreview($previewId: String!, $locale: String!) {
+query GetExpPreview($previewId: String!, $locale: String) {
   preview(id: $previewId, locale: $locale) {
     experienceHeading
     experienceDescription
   }
 }
 
-query GetAllExps($locale: String!) {
+query GetAllExps($locale: String) {
   experienceCollection(order: sys_firstPublishedAt_ASC, locale: $locale) {
     items {
       sys {
@@ -51,7 +51,7 @@ query GetAllExps($locale: String!) {
   }
 }
 
-query GetAllExpsByLocale($locale: String!) {
+query GetAllExps($locale: String) {
   experienceCollection(order: sys_firstPublishedAt_ASC, locale: $locale) {
     items {
       sys {
