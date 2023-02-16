@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import Link from 'next/link';
-
 import NavItem, { INavItem } from './partials/NavItem';
 import Icon from '@/ui/icon';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface IButton {
+export interface IButton {
   type?: 'button' | 'submit' | 'reset';
   text: string;
   primary?: boolean;
