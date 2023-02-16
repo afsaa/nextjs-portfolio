@@ -4,7 +4,7 @@ interface IButton {
   type?: 'button' | 'submit' | 'reset';
   text: string;
   primary?: boolean;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button = ({ type, text, primary, onClick }: IButton) => {
