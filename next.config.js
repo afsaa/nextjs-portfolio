@@ -10,7 +10,7 @@ const config = {
     domains: ['localhost', 'images.ctfassets.net'],
   },
   i18n: {
-    locales: ['en-US', 'es-CO'],
+    locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
   },
 };
