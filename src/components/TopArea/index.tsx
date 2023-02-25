@@ -4,9 +4,10 @@ import ButtonLink from '@/ui/buttonLink';
 import { useTranslations } from '../../hooks';
 
 const TopArea = () => {
+  const translationsResponse = useTranslations('TopArea');
   const { locales, locale } = useRouter();
   const [labels, setLabels] = useState(async () => {
-    await useTranslations('TopArea').then((data) => {
+    await translationsResponse.then((data) => {
       setLabels(data);
     });
   });
