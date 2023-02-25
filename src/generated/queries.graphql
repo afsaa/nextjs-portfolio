@@ -51,23 +51,40 @@ query GetAllExps($locale: String) {
   }
 }
 
-query GetAllExps($locale: String) {
-  experienceCollection(order: sys_firstPublishedAt_ASC, locale: $locale) {
+query GetPersonalInfo($personId: String!, $locale: String) {
+  personalInfo(id: $personId, locale: $locale) {
+    sys {
+      id
+    }
+    title
+    name
+    headshot {
+      url
+    }
+    bio
+    location
+    email
+    linkedin
+    github
+  }
+}
+
+fragment projectSkills on ProjectSkillsCollection {
+  items {
+    ... on Skill {
+      technology
+      tool
+    }
+  }
+}
+
+query GetProjects($locale: String) {
+  projectCollection(locale: $locale) {
     items {
-      sys {
-        id
-        publishedAt
-      }
-      contentfulMetadata {
-        tags {
-          id
-          name
-        }
-      }
-      jobTitle
-      companyName
-      description {
-        json
+      name
+      description
+      skillsCollection {
+        ...projectSkills
       }
     }
   }
