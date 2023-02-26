@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Navbar from '@/components/Navbar';
 import { INavItem } from '../Navbar/partials/NavItem';
 import TopArea from '../TopArea';
+import Footer from '../Footer';
 
 interface IContainerBlock {
   children: ReactNode;
@@ -41,11 +42,13 @@ function ContainerBlock({ children, navItems, ...customMeta }: IContainerBlock) 
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
       </Head>
-      <main className="dark:bg-gray-800 w-full">
-        <TopArea />
-        <Navbar navItems={navItems} />
-        <div>{children}</div>
-        {/* <Footer /> */}
+      <main className="w-full bg-mirage text-carrara">
+        <div>
+          <TopArea />
+          <Navbar navItems={navItems} />
+          <div>{children}</div>
+          <Footer navItems={navItems} />
+        </div>
       </main>
     </div>
   );
