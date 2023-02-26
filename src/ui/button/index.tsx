@@ -12,7 +12,7 @@ const Button = ({ type, text, primary, onClick }: IButton) => {
     <>
       <button
         type={type || 'button'}
-        className={`py-2 px-4 rounded-full font-cabin font-bold ${primary ? 'bg-primary' : 'bg-mirage'} ${primary ? 'text-white' : 'text-primary'} hover:opacity-80 focus:opacity-80`}
+        className={`py-2 px-4 rounded-full font-cabin font-bold ${primary ? 'bg-primary-light' : 'bg-secondary-dark/80'} ${primary ? 'text-black' : 'text-carrara'} hover:opacity-80 focus:opacity-80`}
         onClick={onClick}
       >
         {text}

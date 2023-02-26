@@ -13,8 +13,8 @@ const TopArea = () => {
   });
 
   return (
-    <div className="p-5 md:px-24 flex items-center justify-end gap-x-2 bg-primary/75">
-      <p className="text-white font-bold">{labels['languages']}</p>
+    <div className="p-5 md:px-24 flex items-center justify-end gap-x-2 bg-black">
+      <p className="text-carrara font-bold">{labels['languages']}</p>
       {locales?.map((localItem, index) => (
         <form key={index} action="/api/language" method="POST">
           <input type="hidden" name="selectedLocale" value={localItem} />

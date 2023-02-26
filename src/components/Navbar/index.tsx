@@ -12,11 +12,11 @@ const Navbar = ({ navItems }: { navItems?: INavItem[] }) => {
   };
 
   return (
-    <nav className="mb-10 p-5 md:p-20 flex items-center justify-between bg-primary opacity-75 shadow-xl">
+    <nav className="mb-10 p-5 md:p-20 relative md:static flex items-center justify-between bg-black shadow-xl">
       <Link href="/" legacyBehavior>
         <a className="font-montserrat font-semibold text-2xl text-carrara">AFSAA</a>
       </Link>
-      <div className={`${toggleMenu && 'hidden'} absolute top-16 left-56 md:static md:flex transition-all bg-primary`}>
+      <div className={`${toggleMenu && 'hidden'} w-1/3 md:w-auto absolute md:static top-full left-2/3 md:flex transition-all bg-black`}>
         {navItems?.map(({ sys, title, pathname }) => (
           <NavItem key={sys?.id} title={title} pathname={pathname} />
         ))}
