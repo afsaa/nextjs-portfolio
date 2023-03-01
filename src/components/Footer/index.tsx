@@ -9,8 +9,8 @@ const Footer = ({ navItems }: { navItems?: INavItem[] }) => {
           <NavItem key={sys?.id} title={title} pathname={pathname} />
         ))}
       </div>
-      <div className="my-5 md:mt-0">
-        <p className="text-sm text-center md:text-left text-carrara/50"> &copy; 2023 Andres Saa. All rights reserved.</p>
+      <div className="flex items-center justify-center md:justify-start my-5 md:my-0">
+        <p className="font-cabin text-center md:text-left text-carrara/50"> &copy; 2023 Andres Saa. All rights reserved.</p>
       </div>
     </div>
   );
