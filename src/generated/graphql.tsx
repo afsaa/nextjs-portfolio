@@ -271,12 +271,39 @@ export type AssetFilter = {
 export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
+  experienceCollection?: Maybe<ExperienceCollection>;
+  personalInfoCollection?: Maybe<PersonalInfoCollection>;
+  projectCollection?: Maybe<ProjectCollection>;
   socialMediaCollection?: Maybe<SocialMediaCollection>;
   userCollection?: Maybe<UserCollection>;
 };
 
 
 export type AssetLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type AssetLinkingCollectionsExperienceCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type AssetLinkingCollectionsPersonalInfoCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type AssetLinkingCollectionsProjectCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
@@ -382,12 +409,21 @@ export enum EntryOrder {
 /** Past and current work experiences [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/experience) */
 export type Experience = Entry & {
   __typename?: 'Experience';
+  companyLogo?: Maybe<Asset>;
   companyName?: Maybe<Scalars['String']>;
   contentfulMetadata: ContentfulMetadata;
   description?: Maybe<ExperienceDescription>;
   jobTitle?: Maybe<Scalars['String']>;
   linkedFrom?: Maybe<ExperienceLinkingCollections>;
   sys: Sys;
+  timeWorked?: Maybe<Scalars['String']>;
+};
+
+
+/** Past and current work experiences [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/experience) */
+export type ExperienceCompanyLogoArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -412,6 +448,12 @@ export type ExperienceJobTitleArgs = {
 /** Past and current work experiences [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/experience) */
 export type ExperienceLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** Past and current work experiences [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/experience) */
+export type ExperienceTimeWorkedArgs = {
+  locale?: InputMaybe<Scalars['String']>;
 };
 
 export type ExperienceCollection = {
@@ -450,6 +492,7 @@ export type ExperienceDescriptionLinks = {
 export type ExperienceFilter = {
   AND?: InputMaybe<Array<InputMaybe<ExperienceFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ExperienceFilter>>>;
+  companyLogo_exists?: InputMaybe<Scalars['Boolean']>;
   companyName?: InputMaybe<Scalars['String']>;
   companyName_contains?: InputMaybe<Scalars['String']>;
   companyName_exists?: InputMaybe<Scalars['Boolean']>;
@@ -469,6 +512,13 @@ export type ExperienceFilter = {
   jobTitle_not_contains?: InputMaybe<Scalars['String']>;
   jobTitle_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   sys?: InputMaybe<SysFilter>;
+  timeWorked?: InputMaybe<Scalars['String']>;
+  timeWorked_contains?: InputMaybe<Scalars['String']>;
+  timeWorked_exists?: InputMaybe<Scalars['Boolean']>;
+  timeWorked_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  timeWorked_not?: InputMaybe<Scalars['String']>;
+  timeWorked_not_contains?: InputMaybe<Scalars['String']>;
+  timeWorked_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type ExperienceLinkingCollections = {
@@ -496,7 +546,9 @@ export enum ExperienceOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TimeWorkedAsc = 'timeWorked_ASC',
+  TimeWorkedDesc = 'timeWorked_DESC'
 }
 
 /** [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/icon) */
@@ -782,6 +834,178 @@ export enum NavigationOrder {
   TitleDesc = 'title_DESC'
 }
 
+/** My personal information [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/personalInfo) */
+export type PersonalInfo = Entry & {
+  __typename?: 'PersonalInfo';
+  bio?: Maybe<Scalars['String']>;
+  contentfulMetadata: ContentfulMetadata;
+  email?: Maybe<Scalars['String']>;
+  github?: Maybe<Scalars['String']>;
+  headshot?: Maybe<Asset>;
+  linkedFrom?: Maybe<PersonalInfoLinkingCollections>;
+  linkedin?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  sys: Sys;
+  title?: Maybe<Scalars['String']>;
+};
+
+
+/** My personal information [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/personalInfo) */
+export type PersonalInfoBioArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** My personal information [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/personalInfo) */
+export type PersonalInfoEmailArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** My personal information [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/personalInfo) */
+export type PersonalInfoGithubArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** My personal information [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/personalInfo) */
+export type PersonalInfoHeadshotArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** My personal information [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/personalInfo) */
+export type PersonalInfoLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** My personal information [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/personalInfo) */
+export type PersonalInfoLinkedinArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** My personal information [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/personalInfo) */
+export type PersonalInfoLocationArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** My personal information [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/personalInfo) */
+export type PersonalInfoNameArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** My personal information [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/personalInfo) */
+export type PersonalInfoTitleArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type PersonalInfoCollection = {
+  __typename?: 'PersonalInfoCollection';
+  items: Array<Maybe<PersonalInfo>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type PersonalInfoFilter = {
+  AND?: InputMaybe<Array<InputMaybe<PersonalInfoFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<PersonalInfoFilter>>>;
+  bio?: InputMaybe<Scalars['String']>;
+  bio_contains?: InputMaybe<Scalars['String']>;
+  bio_exists?: InputMaybe<Scalars['Boolean']>;
+  bio_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  bio_not?: InputMaybe<Scalars['String']>;
+  bio_not_contains?: InputMaybe<Scalars['String']>;
+  bio_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  email?: InputMaybe<Scalars['String']>;
+  email_contains?: InputMaybe<Scalars['String']>;
+  email_exists?: InputMaybe<Scalars['Boolean']>;
+  email_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  email_not?: InputMaybe<Scalars['String']>;
+  email_not_contains?: InputMaybe<Scalars['String']>;
+  email_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  github?: InputMaybe<Scalars['String']>;
+  github_contains?: InputMaybe<Scalars['String']>;
+  github_exists?: InputMaybe<Scalars['Boolean']>;
+  github_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  github_not?: InputMaybe<Scalars['String']>;
+  github_not_contains?: InputMaybe<Scalars['String']>;
+  github_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  headshot_exists?: InputMaybe<Scalars['Boolean']>;
+  linkedin?: InputMaybe<Scalars['String']>;
+  linkedin_contains?: InputMaybe<Scalars['String']>;
+  linkedin_exists?: InputMaybe<Scalars['Boolean']>;
+  linkedin_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  linkedin_not?: InputMaybe<Scalars['String']>;
+  linkedin_not_contains?: InputMaybe<Scalars['String']>;
+  linkedin_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  location?: InputMaybe<Scalars['String']>;
+  location_contains?: InputMaybe<Scalars['String']>;
+  location_exists?: InputMaybe<Scalars['Boolean']>;
+  location_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  location_not?: InputMaybe<Scalars['String']>;
+  location_not_contains?: InputMaybe<Scalars['String']>;
+  location_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  name?: InputMaybe<Scalars['String']>;
+  name_contains?: InputMaybe<Scalars['String']>;
+  name_exists?: InputMaybe<Scalars['Boolean']>;
+  name_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  name_not?: InputMaybe<Scalars['String']>;
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  sys?: InputMaybe<SysFilter>;
+  title?: InputMaybe<Scalars['String']>;
+  title_contains?: InputMaybe<Scalars['String']>;
+  title_exists?: InputMaybe<Scalars['Boolean']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title_not?: InputMaybe<Scalars['String']>;
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type PersonalInfoLinkingCollections = {
+  __typename?: 'PersonalInfoLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type PersonalInfoLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum PersonalInfoOrder {
+  EmailAsc = 'email_ASC',
+  EmailDesc = 'email_DESC',
+  GithubAsc = 'github_ASC',
+  GithubDesc = 'github_DESC',
+  LinkedinAsc = 'linkedin_ASC',
+  LinkedinDesc = 'linkedin_DESC',
+  LocationAsc = 'location_ASC',
+  LocationDesc = 'location_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
+}
+
 /** [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/preview) */
 export type Preview = Entry & {
   __typename?: 'Preview';
@@ -902,6 +1126,8 @@ export type Project = Entry & {
   description?: Maybe<Scalars['String']>;
   linkedFrom?: Maybe<ProjectLinkingCollections>;
   name?: Maybe<Scalars['String']>;
+  screenshotsCollection?: Maybe<AssetCollection>;
+  skillsCollection?: Maybe<ProjectSkillsCollection>;
   sys: Sys;
 };
 
@@ -921,6 +1147,24 @@ export type ProjectLinkedFromArgs = {
 /** Most valuable projects to date [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/project) */
 export type ProjectNameArgs = {
   locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Most valuable projects to date [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/project) */
+export type ProjectScreenshotsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** Most valuable projects to date [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/project) */
+export type ProjectSkillsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
 };
 
 export type ProjectCollection = {
@@ -949,6 +1193,8 @@ export type ProjectFilter = {
   name_not?: InputMaybe<Scalars['String']>;
   name_not_contains?: InputMaybe<Scalars['String']>;
   name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  screenshotsCollection_exists?: InputMaybe<Scalars['Boolean']>;
+  skillsCollection_exists?: InputMaybe<Scalars['Boolean']>;
   sys?: InputMaybe<SysFilter>;
 };
 
@@ -978,6 +1224,14 @@ export enum ProjectOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
+export type ProjectSkillsCollection = {
+  __typename?: 'ProjectSkillsCollection';
+  items: Array<Maybe<Entry>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
 export type Query = {
   __typename?: 'Query';
   about?: Maybe<About>;
@@ -991,12 +1245,18 @@ export type Query = {
   iconCollection?: Maybe<IconCollection>;
   navigation?: Maybe<Navigation>;
   navigationCollection?: Maybe<NavigationCollection>;
+  personalInfo?: Maybe<PersonalInfo>;
+  personalInfoCollection?: Maybe<PersonalInfoCollection>;
   preview?: Maybe<Preview>;
   previewCollection?: Maybe<PreviewCollection>;
   project?: Maybe<Project>;
   projectCollection?: Maybe<ProjectCollection>;
+  skill?: Maybe<Skill>;
+  skillCollection?: Maybe<SkillCollection>;
   socialMedia?: Maybe<SocialMedia>;
   socialMediaCollection?: Maybe<SocialMediaCollection>;
+  testimonial?: Maybe<Testimonial>;
+  testimonialCollection?: Maybe<TestimonialCollection>;
   user?: Maybe<User>;
   userCollection?: Maybe<UserCollection>;
 };
@@ -1097,6 +1357,23 @@ export type QueryNavigationCollectionArgs = {
 };
 
 
+export type QueryPersonalInfoArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryPersonalInfoCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<PersonalInfoOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<PersonalInfoFilter>;
+};
+
+
 export type QueryPreviewArgs = {
   id: Scalars['String'];
   locale?: InputMaybe<Scalars['String']>;
@@ -1131,6 +1408,23 @@ export type QueryProjectCollectionArgs = {
 };
 
 
+export type QuerySkillArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QuerySkillCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<SkillOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<SkillFilter>;
+};
+
+
 export type QuerySocialMediaArgs = {
   id: Scalars['String'];
   locale?: InputMaybe<Scalars['String']>;
@@ -1145,6 +1439,23 @@ export type QuerySocialMediaCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<SocialMediaFilter>;
+};
+
+
+export type QueryTestimonialArgs = {
+  id: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+export type QueryTestimonialCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  order?: InputMaybe<Array<InputMaybe<TestimonialOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TestimonialFilter>;
 };
 
 
@@ -1163,6 +1474,91 @@ export type QueryUserCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<UserFilter>;
 };
+
+/** Technologies and tools I'm proficient in [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/skill) */
+export type Skill = Entry & {
+  __typename?: 'Skill';
+  contentfulMetadata: ContentfulMetadata;
+  linkedFrom?: Maybe<SkillLinkingCollections>;
+  sys: Sys;
+  technology?: Maybe<Scalars['String']>;
+  tool?: Maybe<Scalars['String']>;
+};
+
+
+/** Technologies and tools I'm proficient in [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/skill) */
+export type SkillLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** Technologies and tools I'm proficient in [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/skill) */
+export type SkillTechnologyArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Technologies and tools I'm proficient in [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/skill) */
+export type SkillToolArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type SkillCollection = {
+  __typename?: 'SkillCollection';
+  items: Array<Maybe<Skill>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type SkillFilter = {
+  AND?: InputMaybe<Array<InputMaybe<SkillFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<SkillFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  sys?: InputMaybe<SysFilter>;
+  technology?: InputMaybe<Scalars['String']>;
+  technology_contains?: InputMaybe<Scalars['String']>;
+  technology_exists?: InputMaybe<Scalars['Boolean']>;
+  technology_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  technology_not?: InputMaybe<Scalars['String']>;
+  technology_not_contains?: InputMaybe<Scalars['String']>;
+  technology_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  tool?: InputMaybe<Scalars['String']>;
+  tool_contains?: InputMaybe<Scalars['String']>;
+  tool_exists?: InputMaybe<Scalars['Boolean']>;
+  tool_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  tool_not?: InputMaybe<Scalars['String']>;
+  tool_not_contains?: InputMaybe<Scalars['String']>;
+  tool_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type SkillLinkingCollections = {
+  __typename?: 'SkillLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type SkillLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum SkillOrder {
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TechnologyAsc = 'technology_ASC',
+  TechnologyDesc = 'technology_DESC',
+  ToolAsc = 'tool_ASC',
+  ToolDesc = 'tool_DESC'
+}
 
 /** [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/socialMedia) */
 export type SocialMedia = Entry & {
@@ -1289,6 +1685,89 @@ export type SysFilter = {
   publishedVersion_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']>>>;
 };
 
+/** Testimonials to demonstrate credibility [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/testimonial) */
+export type Testimonial = Entry & {
+  __typename?: 'Testimonial';
+  author?: Maybe<Scalars['String']>;
+  contentfulMetadata: ContentfulMetadata;
+  linkedFrom?: Maybe<TestimonialLinkingCollections>;
+  sys: Sys;
+  text?: Maybe<Scalars['String']>;
+};
+
+
+/** Testimonials to demonstrate credibility [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/testimonial) */
+export type TestimonialAuthorArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Testimonials to demonstrate credibility [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/testimonial) */
+export type TestimonialLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+/** Testimonials to demonstrate credibility [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/testimonial) */
+export type TestimonialTextArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type TestimonialCollection = {
+  __typename?: 'TestimonialCollection';
+  items: Array<Maybe<Testimonial>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
+export type TestimonialFilter = {
+  AND?: InputMaybe<Array<InputMaybe<TestimonialFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<TestimonialFilter>>>;
+  author?: InputMaybe<Scalars['String']>;
+  author_contains?: InputMaybe<Scalars['String']>;
+  author_exists?: InputMaybe<Scalars['Boolean']>;
+  author_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  author_not?: InputMaybe<Scalars['String']>;
+  author_not_contains?: InputMaybe<Scalars['String']>;
+  author_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  sys?: InputMaybe<SysFilter>;
+  text?: InputMaybe<Scalars['String']>;
+  text_contains?: InputMaybe<Scalars['String']>;
+  text_exists?: InputMaybe<Scalars['Boolean']>;
+  text_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  text_not?: InputMaybe<Scalars['String']>;
+  text_not_contains?: InputMaybe<Scalars['String']>;
+  text_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type TestimonialLinkingCollections = {
+  __typename?: 'TestimonialLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type TestimonialLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+export enum TestimonialOrder {
+  AuthorAsc = 'author_ASC',
+  AuthorDesc = 'author_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
 /** [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/user) */
 export type User = Entry & {
   __typename?: 'User';
@@ -1414,7 +1893,7 @@ export enum UserOrder {
 }
 
 export type GetNavigationQueryVariables = Exact<{
-  locale: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -1422,7 +1901,7 @@ export type GetNavigationQuery = { __typename?: 'Query', navigationCollection?: 
 
 export type GetUserQueryVariables = Exact<{
   userId: Scalars['String'];
-  locale: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -1430,29 +1909,40 @@ export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User',
 
 export type GetExpPreviewQueryVariables = Exact<{
   previewId: Scalars['String'];
-  locale: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
 }>;
 
 
 export type GetExpPreviewQuery = { __typename?: 'Query', preview?: { __typename?: 'Preview', experienceHeading?: string | null, experienceDescription?: string | null } | null };
 
 export type GetAllExpsQueryVariables = Exact<{
-  locale: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetAllExpsQuery = { __typename?: 'Query', experienceCollection?: { __typename?: 'ExperienceCollection', items: Array<{ __typename?: 'Experience', jobTitle?: string | null, companyName?: string | null, sys: { __typename?: 'Sys', id: string, publishedAt?: any | null }, contentfulMetadata: { __typename?: 'ContentfulMetadata', tags: Array<{ __typename?: 'ContentfulTag', id?: string | null, name?: string | null } | null> }, description?: { __typename?: 'ExperienceDescription', json: any } | null } | null> } | null };
+export type GetAllExpsQuery = { __typename?: 'Query', experienceCollection?: { __typename?: 'ExperienceCollection', items: Array<{ __typename?: 'Experience', jobTitle?: string | null, companyName?: string | null, timeWorked?: string | null, sys: { __typename?: 'Sys', id: string, publishedAt?: any | null }, contentfulMetadata: { __typename?: 'ContentfulMetadata', tags: Array<{ __typename?: 'ContentfulTag', id?: string | null, name?: string | null } | null> }, description?: { __typename?: 'ExperienceDescription', json: any } | null, companyLogo?: { __typename?: 'Asset', url?: string | null } | null } | null> } | null };
 
-export type GetAllExpsByLocaleQueryVariables = Exact<{
-  locale: Scalars['String'];
+export type GetPersonalInfoQueryVariables = Exact<{
+  personId: Scalars['String'];
+  locale?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type GetAllExpsByLocaleQuery = { __typename?: 'Query', experienceCollection?: { __typename?: 'ExperienceCollection', items: Array<{ __typename?: 'Experience', jobTitle?: string | null, companyName?: string | null, sys: { __typename?: 'Sys', id: string, publishedAt?: any | null }, contentfulMetadata: { __typename?: 'ContentfulMetadata', tags: Array<{ __typename?: 'ContentfulTag', id?: string | null, name?: string | null } | null> }, description?: { __typename?: 'ExperienceDescription', json: any } | null } | null> } | null };
+export type GetPersonalInfoQuery = { __typename?: 'Query', personalInfo?: { __typename?: 'PersonalInfo', title?: string | null, name?: string | null, bio?: string | null, location?: string | null, email?: string | null, linkedin?: string | null, github?: string | null, sys: { __typename?: 'Sys', id: string }, headshot?: { __typename?: 'Asset', url?: string | null } | null } | null };
+
+export type ProjectSkillsFragment = { __typename?: 'ProjectSkillsCollection', items: Array<{ __typename?: 'About' } | { __typename?: 'Experience' } | { __typename?: 'Icon' } | { __typename?: 'Navigation' } | { __typename?: 'PersonalInfo' } | { __typename?: 'Preview' } | { __typename?: 'Project' } | { __typename?: 'Skill', technology?: string | null, tool?: string | null } | { __typename?: 'SocialMedia' } | { __typename?: 'Testimonial' } | { __typename?: 'User' } | null> };
+
+export type GetProjectsQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['String']>;
+}>;
 
 
-export const GetNavigationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetNavigation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navigationCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"EnumValue","value":"sys_publishedAt_ASC"}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"pathname"}}]}}]}}]}}]} as unknown as DocumentNode<GetNavigationQuery, GetNavigationQueryVariables>;
-export const GetUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"profilePicture"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;
-export const GetExpPreviewDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetExpPreview"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"previewId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"preview"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"previewId"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"experienceHeading"}},{"kind":"Field","name":{"kind":"Name","value":"experienceDescription"}}]}}]}}]} as unknown as DocumentNode<GetExpPreviewQuery, GetExpPreviewQueryVariables>;
-export const GetAllExpsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllExps"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"experienceCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"EnumValue","value":"sys_firstPublishedAt_ASC"}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contentfulMetadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"jobTitle"}},{"kind":"Field","name":{"kind":"Name","value":"companyName"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"json"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetAllExpsQuery, GetAllExpsQueryVariables>;
-export const GetAllExpsByLocaleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllExpsByLocale"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"experienceCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"EnumValue","value":"sys_firstPublishedAt_ASC"}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contentfulMetadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"jobTitle"}},{"kind":"Field","name":{"kind":"Name","value":"companyName"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"json"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetAllExpsByLocaleQuery, GetAllExpsByLocaleQueryVariables>;
+export type GetProjectsQuery = { __typename?: 'Query', projectCollection?: { __typename?: 'ProjectCollection', items: Array<{ __typename?: 'Project', name?: string | null, description?: string | null, skillsCollection?: { __typename?: 'ProjectSkillsCollection', items: Array<{ __typename?: 'About' } | { __typename?: 'Experience' } | { __typename?: 'Icon' } | { __typename?: 'Navigation' } | { __typename?: 'PersonalInfo' } | { __typename?: 'Preview' } | { __typename?: 'Project' } | { __typename?: 'Skill', technology?: string | null, tool?: string | null } | { __typename?: 'SocialMedia' } | { __typename?: 'Testimonial' } | { __typename?: 'User' } | null> } | null } | null> } | null };
+
+export const ProjectSkillsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"projectSkills"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProjectSkillsCollection"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Skill"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"technology"}},{"kind":"Field","name":{"kind":"Name","value":"tool"}}]}}]}}]}}]} as unknown as DocumentNode<ProjectSkillsFragment, unknown>;
+export const GetNavigationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetNavigation"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"navigationCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"EnumValue","value":"sys_publishedAt_ASC"}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"pathname"}}]}}]}}]}}]} as unknown as DocumentNode<GetNavigationQuery, GetNavigationQueryVariables>;
+export const GetUserDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUser"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"user"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"role"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"profilePicture"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]} as unknown as DocumentNode<GetUserQuery, GetUserQueryVariables>;
+export const GetExpPreviewDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetExpPreview"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"previewId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"preview"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"previewId"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"experienceHeading"}},{"kind":"Field","name":{"kind":"Name","value":"experienceDescription"}}]}}]}}]} as unknown as DocumentNode<GetExpPreviewQuery, GetExpPreviewQueryVariables>;
+export const GetAllExpsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllExps"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"experienceCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order"},"value":{"kind":"EnumValue","value":"sys_firstPublishedAt_ASC"}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"publishedAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contentfulMetadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"jobTitle"}},{"kind":"Field","name":{"kind":"Name","value":"companyName"}},{"kind":"Field","name":{"kind":"Name","value":"description"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"json"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timeWorked"}},{"kind":"Field","name":{"kind":"Name","value":"companyLogo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetAllExpsQuery, GetAllExpsQueryVariables>;
+export const GetPersonalInfoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPersonalInfo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"personId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"personalInfo"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"personId"}}},{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sys"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"headshot"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"linkedin"}},{"kind":"Field","name":{"kind":"Name","value":"github"}}]}}]}}]} as unknown as DocumentNode<GetPersonalInfoQuery, GetPersonalInfoQueryVariables>;
+export const GetProjectsDocument = {"kind":"Document", "definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProjects"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"locale"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"projectCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"locale"},"value":{"kind":"Variable","name":{"kind":"Name","value":"locale"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"skillsCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"projectSkills"}}]}}]}}]}}]}},...ProjectSkillsFragmentDoc.definitions]} as unknown as DocumentNode<GetProjectsQuery, GetProjectsQueryVariables>;
