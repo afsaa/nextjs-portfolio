@@ -47,6 +47,10 @@ query GetAllExps($locale: String) {
       description {
         json
       }
+      timeWorked
+      companyLogo {
+        url
+      }
     }
   }
 }

@@ -2,7 +2,6 @@ import Experience from './../Experience';
 import React from 'react';
 import Button from '@/ui/button';
 import { Experience as ExpGenerated } from '../../generated/graphql';
-import PlaceholderImg from '../../public/icons8-image-30.png';
 
 const ExperiencesCard = ({ experiences }: { experiences: ExpGenerated[] }) => {
   return (
@@ -10,9 +9,9 @@ const ExperiencesCard = ({ experiences }: { experiences: ExpGenerated[] }) => {
       <>
         <h2 className="font-montserrat font-bold text-carrara">Work</h2>
         {experiences.map((experience) => {
-          return <Experience companyLogo={PlaceholderImg} companyName={experience.companyName} role={experience.jobTitle} timeWorked={'2020 - 2023'} />;
+          return <Experience {...experience} />;
         })}
-        <div className="mt-5 md:mt-0">
+        <div className="mt-4">
           <Button primary size="full" text="Download CV" />
         </div>
       </>
