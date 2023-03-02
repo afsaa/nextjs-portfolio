@@ -10,9 +10,10 @@ import { SiRedux } from 'react-icons/si';
 import { SiGit } from 'react-icons/si';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { createApolloClient } from '../utils/apolloClient';
-import { GetNavigationDocument } from '../generated/graphql';
+import { GetNavigationDocument, GetPersonalInfoDocument, PersonalInfo } from '../generated/graphql';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-export const getStaticProps: GetStaticProps<{ navigationData: Navigation[] }> = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; personalInfoData: PersonalInfo }> = async ({ locale }) => {
   try {
     const client = createApolloClient();
     const navigationResponse = await client.query({
@@ -20,44 +21,41 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[] }> = 
       variables: { locale },
     });
 
+    const personalInfoResponse = await client.query({
+      query: GetPersonalInfoDocument,
+      variables: { personId: '6n1bd6LTg3WLomldFn08aR', locale },
+    });
+
     if (navigationResponse.data.navigationCollection === null) {
       throw new Error('Failed to fetch navigation');
     }
+    if (personalInfoResponse.data === null) {
+      throw new Error('Failed to fetch personal info');
+    }
 
     const navigationData = navigationResponse.data.navigationCollection.items as Navigation[];
+    const personalInfoData = personalInfoResponse.data.personalInfo as PersonalInfo;
+
     return {
       props: {
         navigationData,
+        personalInfoData,
       },
     };
   } catch (error) {
     return {
       props: {
         navigationData: [],
+        personalInfoData: null,
       },
     };
   }
 };
 
-const about = ({ navigationData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const about = ({ navigationData, personalInfoData }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - About' }} navItems={navigationData}>
-      <ArticleSection
-        sectionHeading="ABOUT ME"
-        articleContent={
-          <>
-            <p>Natural team player that enjoys helping people and teammates to take them to the next level.</p>
-            <p>
-              Systems and Computing Engineer specialized in Frontend development with 2+ years of experience using React and Redux as main tools to collaborate in the creation of different kind of
-              products.
-            </p>
-            <p>
-              I would like to work on projects related to personal finances to help people relieve their stress on the use of money, or environment to reduce our CO2 footprint and fight climate
-              change.
-            </p>
-          </>
-        }
-      />
+      <ArticleSection sectionHeading="ABOUT ME" articleContent={personalInfoData.bio} />
       <section className="w-full h-auto mb-10 flex flex-col items-center">
         <h1 className="mb-5 font-montserrat text-4xl">SKILLS</h1>
         <article className="w-full h-auto px-10">

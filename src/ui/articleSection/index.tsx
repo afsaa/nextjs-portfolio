@@ -3,7 +3,7 @@ import React from 'react';
 interface IArticleSection {
   sectionHeading: string;
   articleHeading?: string;
-  articleContent: JSX.Element;
+  articleContent: JSX.Element | string;
 }
 
 const ArticleSection = ({ sectionHeading, articleHeading, articleContent }: IArticleSection) => {
