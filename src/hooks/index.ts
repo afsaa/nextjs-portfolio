@@ -9,7 +9,7 @@ export const useTranslations = async (componentName: string) => {
     },
     labels: {
       async get(locale: string, componentName?: string) {
-        const labelsResponse = await fetch(`api/staticdata?locale=${locale}&componentName=${componentName}`);
+        const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
         const labels = await labelsResponse.json();
         return labels;
       },
