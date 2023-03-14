@@ -5,14 +5,12 @@ import ErrorContainer from '@/ui/error';
 import DescriptionWithCTA from '@/ui/descriptionWithCTA';
 import ImageContainer from '@/ui/imageContainer';
 import ExperiencePreview from '@/components/ExperiencePreview';
-import { GetNavigationDocument, GetUserDocument, GetExpPreviewDocument, Navigation, User, Preview, Experience, GetAllExpsDocument } from '../generated/graphql';
+import { GetNavigationDocument, GetUserDocument, GetExpPreviewDocument, Navigation, User, Preview, Experience, GetAllExpsDocument, PersonalInfo, GetPersonalInfoDocument } from '../generated/graphql';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { createApolloClient } from '../utils/apolloClient';
-import Button from '../ui/button';
-import Image from 'next/image';
 import ExperiencesCard from '@/components/ExperiencesCard';
 
-export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; userData: User; expPreviewData: Preview; expsData: Experience[] }> = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; userData: User; expPreviewData: Preview; expsData: Experience[]; personalInfoData: PersonalInfo }> = async ({ locale }) => {
   try {
     const client = createApolloClient();
     const navigationResponse = await client.query({
@@ -31,6 +29,10 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; user
       query: GetAllExpsDocument,
       variables: { locale },
     });
+    const personalInfoResponse = await client.query({
+      query: GetPersonalInfoDocument,
+      variables: { personId: '6n1bd6LTg3WLomldFn08aR', locale },
+    });
 
     if (navigationResponse.data.navigationCollection === null) {
       throw new Error('Failed to fetch navigation');
@@ -44,11 +46,15 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; user
     if (allExpsResponse.data.experienceCollection === null) {
       throw new Error('Failed to fetch experiences');
     }
+    if (personalInfoResponse.data === null) {
+      throw new Error('Failed to fetch personal info');
+    }
 
     const navigationData = navigationResponse.data.navigationCollection.items as Navigation[];
     const userData = userResponse.data.user as User;
     const expPreviewData = expPreviewResponse.data.preview as Preview;
     const expsData = allExpsResponse.data.experienceCollection.items as unknown as Experience[];
+    const personalInfoData = personalInfoResponse.data.personalInfo as PersonalInfo;
 
     return {
       props: {
@@ -56,6 +62,7 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; user
         userData,
         expPreviewData,
         expsData,
+        personalInfoData,
       },
     };
   } catch (error) {
@@ -66,12 +73,13 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; user
         userData: null,
         expPreviewData: null,
         expsData: [],
+        personalInfoData: null,
       },
     };
   }
 };
 
-export default function Home({ navigationData, userData, expPreviewData, expsData }: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({ navigationData, userData, expPreviewData, expsData, personalInfoData }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Frontend Developer' }} navItems={navigationData}>
       <Hero
@@ -79,7 +87,7 @@ export default function Home({ navigationData, userData, expPreviewData, expsDat
         onError={() => <ErrorContainer />}
         render={() => (
           <>
-            <DescriptionWithCTA fields={userData} redirectUrl="/about" />
+            <DescriptionWithCTA fields={userData} redirectUrl="/about" linkedinUrl={personalInfoData?.linkedin} githubUrl={personalInfoData?.github} />
             <ImageContainer profilePicture={userData?.profilePicture} />
           </>
         )}
@@ -89,28 +97,5 @@ export default function Home({ navigationData, userData, expPreviewData, expsDat
         <ExperiencesCard experiences={expsData} />
       </div>
     </ContainerBlock>
-  );
-}
-
-function undefined({ PlaceholderImg }) {
-  return (
-    <div className="w-auto md:w-96 h-auto p-4 border border-stone-600 rounded-xl flex flex-col justify-between justify-self-center bg-black/50">
-      <h2 className="font-montserrat font-bold text-carrara">Work</h2>
-      <div className="w-full flex justify-between gap-4">
-        <div className="w-14 h-12 flex items-center justify-center border border-stone-600 rounded-full">
-          <Image className="m-0" width={45} height={45} src={PlaceholderImg} alt="Company logo" />
-        </div>
-        <div className="w-full flex flex-col justify-around">
-          <h3 className="font-cabin font-bold text-carrara">Abocato</h3>
-          <div className="flex justify-between">
-            <p className="font-cabin text-carrara/50">Work role</p>
-            <p className="font-cabin text-carrara/50">Time working</p>
-          </div>
-        </div>
-      </div>
-      <div className="mt-5 md:mt-0">
-        <Button primary size="full" text="Download CV" />
-      </div>
-    </div>
   );
 }

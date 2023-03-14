@@ -11,7 +11,6 @@ import { SiGit } from 'react-icons/si';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { createApolloClient } from '../utils/apolloClient';
 import { GetNavigationDocument, GetPersonalInfoDocument, PersonalInfo } from '../generated/graphql';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; personalInfoData: PersonalInfo }> = async ({ locale }) => {
   try {
