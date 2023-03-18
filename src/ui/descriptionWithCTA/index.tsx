@@ -18,10 +18,9 @@ interface IDescriptionWithCTA {
 
 const DescriptionWithCTA = ({ fields, redirectUrl, linkedinUrl, githubUrl }: IDescriptionWithCTA) => {
   const router = useRouter();
-  console.log(linkedinUrl);
 
   return (
-    <div className="w-full md:w-auto flex flex-col items-start">
+    <div className="w-full md:w-1/2 lg:w-2/3 p-0 md:pr-6 flex flex-col items-start justify-center">
       <h1 className="mb-10 text-6xl text-carrara font-montserrat">{fields?.name}</h1>
       <h2 className="mb-5 text-3xl text-primary-light font-cabin font-bold">{fields?.role}</h2>
       <h4 className="mb-5 text-lg text-carrara font-montserrat">{fields?.summary}</h4>

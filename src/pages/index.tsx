@@ -92,7 +92,7 @@ export default function Home({ navigationData, userData, expPreviewData, expsDat
           </>
         )}
       />
-      <div className="h-auto md:h-96 px-10 grid grid-flow-row-dense grid-cols-1 md:grid-cols-2 grid-row-1 md:grid-row-2 gap-5 md:gap-40">
+      <div className="my-4 md:my-10 px-10 flex flex-wrap gap-6 md:gap-0">
         <ExperiencePreview heading={expPreviewData?.experienceHeading} description={expPreviewData?.experienceDescription} />
         <ExperiencesCard experiences={expsData} />
       </div>
