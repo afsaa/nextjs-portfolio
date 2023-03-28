@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Button from '../button';
 import Icon from '@/ui/icon';
-import { IoLogoLinkedin, IoLogoGithub } from 'react-icons/io';
 import Link from 'next/link';
 
 interface IDescriptionWithCTA {
@@ -27,10 +26,10 @@ const DescriptionWithCTA = ({ fields, redirectUrl, linkedinUrl, githubUrl }: IDe
       {linkedinUrl && githubUrl && (
         <div className="mb-5 flex items-center justify-evenly gap-2.5">
           <Link referrerPolicy="no-referrer" target="_blank" href={linkedinUrl}>
-            <Icon className="text-carrara" icon={<IoLogoLinkedin />} fontSize="30px" color="" />
+            <Icon className="text-carrara" icon="SiLinkedin" fontSize="30px" color="" />
           </Link>
           <Link referrerPolicy="no-referrer" target="_blank" href={githubUrl}>
-            <Icon className="text-carrara" icon={<IoLogoGithub />} fontSize="30px" color="" />
+            <Icon className="text-carrara" icon="SiGithub" fontSize="30px" color="" />
           </Link>
         </div>
       )}

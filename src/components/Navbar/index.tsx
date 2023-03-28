@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import Link from 'next/link';
 import NavItem, { INavItem } from './partials/NavItem';
 import Icon from '@/ui/icon';
@@ -22,7 +21,7 @@ const Navbar = ({ navItems }: { navItems?: INavItem[] }) => {
         ))}
       </div>
       <div className="md:hidden cursor-pointer" onClick={() => handleToggleMenu()}>
-        <Icon className="text-carrara" icon={<GiHamburgerMenu />} fontSize="25px" color="" />
+        <Icon className="text-carrara" icon="GiHamburgerMenu" fontSize="25px" color="" />
       </div>
     </nav>
   );
