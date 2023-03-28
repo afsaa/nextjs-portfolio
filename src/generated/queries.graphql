@@ -93,3 +93,11 @@ query GetProjects($locale: String) {
     }
   }
 }
+
+query GetAllSkills {
+  skillCollection {
+    items {
+      technology
+    }
+  }
+}
