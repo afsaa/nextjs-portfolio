@@ -73,22 +73,14 @@ query GetPersonalInfo($personId: String!, $locale: String) {
   }
 }
 
-fragment projectSkills on ProjectSkillsCollection {
-  items {
-    ... on Skill {
-      technology
-      tool
-    }
-  }
-}
-
 query GetProjects($locale: String) {
   projectCollection(locale: $locale) {
     items {
-      name
+      title
       description
-      skillsCollection {
-        ...projectSkills
+      technologies
+      image {
+        url
       }
     }
   }
