@@ -1129,6 +1129,7 @@ export type Project = Entry & {
   sys: Sys;
   technologies?: Maybe<Array<Maybe<Scalars['String']>>>;
   title?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
 };
 
 
@@ -1159,6 +1160,12 @@ export type ProjectTechnologiesArgs = {
 
 /** Most valuable projects to date [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/project) */
 export type ProjectTitleArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Most valuable projects to date [See type definition](https://app.contentful.com/spaces/6lbi1puzqh8m/content_types/project) */
+export type ProjectUrlArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
@@ -1194,6 +1201,13 @@ export type ProjectFilter = {
   title_not?: InputMaybe<Scalars['String']>;
   title_not_contains?: InputMaybe<Scalars['String']>;
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  url?: InputMaybe<Scalars['String']>;
+  url_contains?: InputMaybe<Scalars['String']>;
+  url_exists?: InputMaybe<Scalars['Boolean']>;
+  url_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  url_not?: InputMaybe<Scalars['String']>;
+  url_not_contains?: InputMaybe<Scalars['String']>;
+  url_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type ProjectLinkingCollections = {
@@ -1219,7 +1233,9 @@ export enum ProjectOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
   TitleAsc = 'title_ASC',
-  TitleDesc = 'title_DESC'
+  TitleDesc = 'title_DESC',
+  UrlAsc = 'url_ASC',
+  UrlDesc = 'url_DESC'
 }
 
 export type Query = {
