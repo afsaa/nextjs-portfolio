@@ -19,6 +19,9 @@ query GetUser($userId: String!, $locale: String) {
       title
       url
     }
+    cv {
+      url
+    }
   }
 }
 

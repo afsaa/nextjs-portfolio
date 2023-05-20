@@ -94,7 +94,7 @@ export default function Home({ navigationData, userData, expPreviewData, expsDat
       />
       <div className="my-4 md:my-10 px-10 flex flex-wrap gap-6 md:gap-0">
         <ExperiencePreview heading={expPreviewData?.experienceHeading} description={expPreviewData?.experienceDescription} />
-        <ExperiencesCard experiences={expsData} />
+        <ExperiencesCard cvUrl={userData?.cv.url} experiences={expsData} />
       </div>
     </ContainerBlock>
   );
