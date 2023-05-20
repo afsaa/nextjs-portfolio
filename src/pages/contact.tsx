@@ -61,7 +61,7 @@ const contact = ({ navigationData }: InferGetStaticPropsType<typeof getStaticPro
                   <h2 className="text-2xl font-montserrat">LinkedIn</h2>
                   <p className="font-cabin">
                     Please visit my LinkedIn profile at{' '}
-                    <a className="font-bold text-primary-light hover:text-primary" href="https://linkedin.com/in/andres-saa">
+                    <a className="font-bold text-primary-light hover:text-primary" href="https://linkedin.com/in/andres-saa" target="_blank">
                       andres-saa
                     </a>
                     . I am always happy to connect with fellow professionals and discuss industry trends.
@@ -71,7 +71,7 @@ const contact = ({ navigationData }: InferGetStaticPropsType<typeof getStaticPro
                   <h2 className="text-2xl font-montserrat">Github</h2>
                   <p className="font-cabin">
                     Check out my Github profile at{' '}
-                    <a className="font-bold text-primary-light hover:text-primary" href="https://github.com/afsaa">
+                    <a className="font-bold text-primary-light hover:text-primary" href="https://github.com/afsaa" target="_blank">
                       afsaa
                     </a>
                     . You can see some of my recent projects and code samples. Thank you once again for your interest in my work. I look forward to hearing from you soon!
