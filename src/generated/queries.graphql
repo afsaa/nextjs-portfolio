@@ -82,6 +82,7 @@ query GetProjects($locale: String) {
       image {
         url
       }
+      url
     }
   }
 }
