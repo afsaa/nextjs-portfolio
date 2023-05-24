@@ -90,10 +90,13 @@ query GetProjects($locale: String) {
   }
 }
 
-query GetAllSkills {
-  skillCollection {
+query GetAllSkills($locale: String) {
+  skillCollection(locale: $locale) {
     items {
       technology
+      isHardSkill
+      isOtherSkill
+      isSoftSkill
     }
   }
 }

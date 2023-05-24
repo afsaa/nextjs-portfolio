@@ -20,6 +20,7 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; pers
 
     const skillsResponse = await client.query({
       query: GetAllSkillsDocument,
+      variables: { locale },
     });
 
     if (navigationResponse.data.navigationCollection === null) {
@@ -55,6 +56,10 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; pers
 };
 
 const about = ({ navigationData, personalInfoData, skillsData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const hardSkills: Skill[] = skillsData.filter((skill) => skill.isHardSkill === true);
+  const softSkills: Skill[] = skillsData.filter((skill) => skill.isSoftSkill === true);
+  const otherSkills: Skill[] = skillsData.filter((skill) => skill.isOtherSkill === true);
+
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - About' }} navItems={navigationData}>
       <ArticleSection sectionHeading="ABOUT ME" articleContent={personalInfoData.bio} />
@@ -62,20 +67,9 @@ const about = ({ navigationData, personalInfoData, skillsData }: InferGetStaticP
         sectionHeading="SKILLS"
         articleContent={
           <>
-            <SkillComponent skills={skillsData} hasHardSkills />
-            <h2 className="text-2xl font-montserrat">SOFT:</h2>
-            <div className="my-5 flex md:flex-row flex-col items-center justify-start gap-10 font-cabin">
-              <p>WRITTEN COMMUNICATION</p>
-              <p>ACTIVE LISTENING</p>
-              <p>EMPATHY</p>
-              <p>TEAMWORK</p>
-              <p>QUANTITATIVE REASONING</p>
-            </div>
-            <h2 className="text-2xl font-montserrat">OTHERS:</h2>
-            <div className="my-5 flex md:flex-row flex-col items-center justify-start gap-10 font-cabin">
-              <p>SPANISH - NATIVE</p>
-              <p>ENGLISH - B2</p>
-            </div>
+            <SkillComponent skills={hardSkills} hasHardSkills />
+            <SkillComponent skills={softSkills} hasSoftSkills />
+            <SkillComponent skills={otherSkills} hasOtherSkills />
           </>
         }
       />
