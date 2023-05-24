@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from '../button';
 import Icon from '@/ui/icon';
 import Link from 'next/link';
+import { useTranslations } from '../../hooks';
 
 interface IDescriptionWithCTA {
   fields?: {
@@ -17,6 +18,12 @@ interface IDescriptionWithCTA {
 
 const DescriptionWithCTA = ({ fields, redirectUrl, linkedinUrl, githubUrl }: IDescriptionWithCTA) => {
   const router = useRouter();
+  const translationsResponse = useTranslations('descriptionWithCTA');
+  const [labels, setLabels] = useState(async () => {
+    await translationsResponse.then((data) => {
+      setLabels(data);
+    });
+  });
 
   return (
     <div className="w-full md:w-1/2 lg:w-2/3 p-0 md:pr-6 flex flex-col items-start justify-center">
@@ -33,7 +40,7 @@ const DescriptionWithCTA = ({ fields, redirectUrl, linkedinUrl, githubUrl }: IDe
           </Link>
         </div>
       )}
-      {!!fields && <Button text="See more" primary onClick={() => router.push(redirectUrl)} />}
+      {!!fields && <Button text={labels['seeMore']} primary onClick={() => router.push(redirectUrl)} />}
     </div>
   );
 };

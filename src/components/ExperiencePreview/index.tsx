@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Markdown from 'markdown-to-jsx';
 import Button from '@/ui/button';
+import { useTranslations } from '../../hooks';
 
 interface IExperiencePreview {
   heading: string;
@@ -10,6 +11,12 @@ interface IExperiencePreview {
 
 const ExperiencePreview = ({ heading, description }: IExperiencePreview) => {
   const router = useRouter();
+  const translationsResponse = useTranslations('ExperiencePreview');
+  const [labels, setLabels] = useState(async () => {
+    await translationsResponse.then((data) => {
+      setLabels(data);
+    });
+  });
 
   return (
     <section className="w-full md:w-1/2 lg:w-2/3 p-0 md:pr-10 flex flex-col items-center justify-evenly">
@@ -22,7 +29,7 @@ const ExperiencePreview = ({ heading, description }: IExperiencePreview) => {
         </div>
       </article>
       <div className="my-5 flex items-center justify-center">
-        <Button primary text="See more" onClick={() => router.push('/exp-and-projects')} />
+        <Button primary text={labels['seeMore']} onClick={() => router.push('/exp-and-projects')} />
       </div>
     </section>
   );
