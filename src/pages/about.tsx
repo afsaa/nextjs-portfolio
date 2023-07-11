@@ -62,7 +62,7 @@ const about = ({ navigationData, personalInfoData, skillsData }: InferGetStaticP
 
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - About' }} navItems={navigationData}>
-      <ArticleSection sectionHeading="ABOUT ME" articleContent={personalInfoData.bio} />
+      <ArticleSection sectionHeading="ABOUT ME" articleText={personalInfoData.bio} />
       <ArticleSection
         sectionHeading="SKILLS"
         articleContent={

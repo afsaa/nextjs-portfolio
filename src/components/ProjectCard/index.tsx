@@ -8,7 +8,7 @@ interface ProjectCardProps extends Project {}
 const ProjectCard = ({ title, description, technologies, image, url }: ProjectCardProps): JSX.Element => {
   return (
     <Link href={url} target="_blank">
-      <div className="border border-stone-600 rounded-xl bg-black/50 shadow-md  overflow-hidden hover:opacity-80 focus:opacity-80">
+      <div className="max-w-md border border-stone-600 rounded-xl bg-black/50 shadow-md  overflow-hidden hover:opacity-80 focus:opacity-80">
         <img src={image?.url || 'https://via.placeholder.com/400x250'} alt={title} className="w-full h-48 object-fill" />
         <div className="p-4">
           <h3 className="mb-2 font-montserrat font-bold text-xl">{title}</h3>
