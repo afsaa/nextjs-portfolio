@@ -4,6 +4,8 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { createApolloClient } from '../utils/apolloClient';
 import { GetAllSkillsDocument, GetNavigationDocument, GetPersonalInfoDocument, PersonalInfo, Skill } from '../generated/graphql';
 import SkillComponent from '../components/Skill';
+import { useTranslations } from '../hooks';
+import { useState } from 'react';
 
 export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; personalInfoData: PersonalInfo; skillsData: Skill[] }> = async ({ locale }) => {
   try {
@@ -59,12 +61,18 @@ const about = ({ navigationData, personalInfoData, skillsData }: InferGetStaticP
   const hardSkills: Skill[] = skillsData.filter((skill) => skill.isHardSkill === true);
   const softSkills: Skill[] = skillsData.filter((skill) => skill.isSoftSkill === true);
   const otherSkills: Skill[] = skillsData.filter((skill) => skill.isOtherSkill === true);
+  const translationsResponse = useTranslations('About');
+  const [labels, setLabels] = useState(async () => {
+    await translationsResponse.then((data) => {
+      setLabels(data);
+    });
+  });
 
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - About' }} navItems={navigationData}>
-      <ArticleSection sectionHeading="ABOUT ME" articleText={personalInfoData.bio} />
+      <ArticleSection sectionHeading={labels['aboutMeHeading']} articleText={personalInfoData.bio} />
       <ArticleSection
-        sectionHeading="SKILLS"
+        sectionHeading={labels['skillsHeading']}
         articleContent={
           <>
             <SkillComponent skills={hardSkills} hasHardSkills />

@@ -4,6 +4,8 @@ import { GetNavigationDocument, GetProjectsDocument, Project } from '../generate
 import { createApolloClient } from '../utils/apolloClient';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import ProjectCard from '../components/ProjectCard';
+import { useTranslations } from '../hooks';
+import { useState } from 'react';
 
 export const getStaticProps: GetStaticProps<{ projectsData: Project[]; navigationData: Navigation[] }> = async ({ locale }) => {
   try {
@@ -45,9 +47,16 @@ export const getStaticProps: GetStaticProps<{ projectsData: Project[]; navigatio
 };
 
 const ExperienceAndProjects = ({ projectsData, navigationData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const translationsResponse = useTranslations('Projects');
+  const [labels, setLabels] = useState(async () => {
+    await translationsResponse.then((data) => {
+      setLabels(data);
+    });
+  });
+
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Experience and best projects' }} navItems={navigationData}>
-      <h1 className="mb-10 text-4xl text-center text-carrara font-montserrat">Projects</h1>
+      <h1 className="mb-10 text-4xl text-center text-carrara font-montserrat">{labels['projectsHeading']}</h1>
       <div className="m-0 md:my-4 px-10 py-5 md:py-10 flex flex-wrap items-start justify-around gap-6 md:gap-8">
         {projectsData.map((project) => {
           return <ProjectCard {...project} />;

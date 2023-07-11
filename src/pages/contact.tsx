@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ContainerBlock from '../components/ContainerBlock';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { createApolloClient } from '../utils/apolloClient';
 import { GetNavigationDocument } from '../generated/graphql';
 import ArticleSection from '@/ui/articleSection';
+import { useTranslations } from '../hooks';
 
 export const getStaticProps: GetStaticProps<{ navigationData: Navigation[] }> = async ({ locale }) => {
   try {
@@ -36,12 +37,19 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[] }> = 
 };
 
 const contact = ({ navigationData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const translationsResponse = useTranslations('Contact');
+  const [labels, setLabels] = useState(async () => {
+    await translationsResponse.then((data) => {
+      setLabels(data);
+    });
+  });
+
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Contact' }} navItems={navigationData}>
       <div className="h-auto flex flex-col items-start  gap-4">
         <div className="w-full">
           <ArticleSection
-            sectionHeading="CONTACT"
+            sectionHeading={labels['contactHeading']}
             articleContent={
               <>
                 <p className="font-cabin text-center">
