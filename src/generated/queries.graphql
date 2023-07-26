@@ -100,3 +100,28 @@ query GetAllSkills($locale: String) {
     }
   }
 }
+
+query GetContactSection($contactSectionId: String!, $locale: String) {
+  contactSection(id: $contactSectionId, locale: $locale) {
+    heading
+    description {
+      json
+    }
+  }
+}
+
+query GetContact($contactId: String!, $locale: String) {
+  contact(id: $contactId, locale: $locale) {
+    mainParagraph
+    contactSectionsCollection(locale: $locale) {
+      items {
+        ... on ContactSection {
+          heading
+          description {
+            json
+          }
+        }
+      }
+    }
+  }
+}

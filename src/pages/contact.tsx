@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import ContainerBlock from '../components/ContainerBlock';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { createApolloClient } from '../utils/apolloClient';
-import { GetNavigationDocument } from '../generated/graphql';
+import { Contact, ContactSection, GetContactDocument, GetNavigationDocument } from '../generated/graphql';
 import ArticleSection from '@/ui/articleSection';
 import { useTranslations } from '../hooks';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { INLINES } from '@contentful/rich-text-types';
 
-export const getStaticProps: GetStaticProps<{ navigationData: Navigation[] }> = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; contactData: Contact }> = async ({ locale }) => {
   try {
     const client = createApolloClient();
 
@@ -15,15 +17,27 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[] }> = 
       variables: { locale },
     });
 
+    const contactResponse = await client.query({
+      query: GetContactDocument,
+      variables: { contactId: 'Giej5xkiHd6hOM1VZxy31', locale },
+    });
+
     if (navigationResponse.data.navigationCollection === null) {
       throw new Error('Failed to fetch navigation');
     }
 
+    if (contactResponse.data.contact === null) {
+      throw new Error('Failed to fetch contact data');
+    }
+
     const navigationData = navigationResponse.data.navigationCollection.items as Navigation[];
+
+    const contactData = contactResponse.data.contact as Contact;
 
     return {
       props: {
         navigationData,
+        contactData,
       },
     };
   } catch (error) {
@@ -31,12 +45,13 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[] }> = 
     return {
       props: {
         navigationData: [],
+        contactData: null,
       },
     };
   }
 };
 
-const contact = ({ navigationData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const contact = ({ navigationData, contactData }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const translationsResponse = useTranslations('Contact');
   const [labels, setLabels] = useState(async () => {
     await translationsResponse.then((data) => {
@@ -46,45 +61,19 @@ const contact = ({ navigationData }: InferGetStaticPropsType<typeof getStaticPro
 
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Contact' }} navItems={navigationData}>
-      <div className="h-auto flex flex-col items-start  gap-4">
+      <div className="md:h-[calc(100vh-508px)] h-auto flex flex-col items-start  gap-4">
         <div className="w-full">
           <ArticleSection
             sectionHeading={labels['contactHeading']}
             articleContent={
               <>
-                <p className="font-cabin text-center">
-                  Thank you for visiting my portfolio! If you have any questions or would like to get in touch, please feel free to reach out to me via the following channels:
-                </p>
-                <div>
-                  <h2 className="text-2xl font-montserrat">Email</h2>
-                  <p className="font-cabin">
-                    You can send me an email at{' '}
-                    <a className="font-bold text-primary-light hover:text-primary" href="mailto:andressaa.dev@gmail.com">
-                      andressaa.dev@gmail.com
-                    </a>
-                    . I try to respond to all emails within 24 hours.
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-2xl font-montserrat">LinkedIn</h2>
-                  <p className="font-cabin">
-                    Please visit my LinkedIn profile at{' '}
-                    <a className="font-bold text-primary-light hover:text-primary" href="https://linkedin.com/in/andres-saa" target="_blank">
-                      andres-saa
-                    </a>
-                    . I am always happy to connect with fellow professionals and discuss industry trends.
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-2xl font-montserrat">Github</h2>
-                  <p className="font-cabin">
-                    Check out my Github profile at{' '}
-                    <a className="font-bold text-primary-light hover:text-primary" href="https://github.com/afsaa" target="_blank">
-                      afsaa
-                    </a>
-                    . You can see some of my recent projects and code samples. Thank you once again for your interest in my work. I look forward to hearing from you soon!
-                  </p>
-                </div>
+                <p className="font-cabin text-center">{contactData.mainParagraph}</p>
+                {contactData.contactSectionsCollection.items.map((contactSection: ContactSection) => (
+                  <div key={contactSection.sys.id}>
+                    <h2 className="text-2xl font-montserrat">{contactSection.heading}</h2>
+                    {documentToReactComponents(contactSection.description.json)}
+                  </div>
+                ))}
               </>
             }
           />
