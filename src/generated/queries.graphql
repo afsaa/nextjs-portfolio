@@ -19,6 +19,9 @@ query GetUser($userId: String!, $locale: String) {
       title
       url
     }
+    cv {
+      url
+    }
   }
 }
 
@@ -73,22 +76,51 @@ query GetPersonalInfo($personId: String!, $locale: String) {
   }
 }
 
-fragment projectSkills on ProjectSkillsCollection {
-  items {
-    ... on Skill {
-      technology
-      tool
+query GetProjects($locale: String) {
+  projectCollection(locale: $locale) {
+    items {
+      title
+      description
+      technologies
+      image {
+        url
+      }
+      url
     }
   }
 }
 
-query GetProjects($locale: String) {
-  projectCollection(locale: $locale) {
+query GetAllSkills($locale: String) {
+  skillCollection(locale: $locale) {
     items {
-      name
-      description
-      skillsCollection {
-        ...projectSkills
+      technology
+      isHardSkill
+      isOtherSkill
+      isSoftSkill
+    }
+  }
+}
+
+query GetContactSection($contactSectionId: String!, $locale: String) {
+  contactSection(id: $contactSectionId, locale: $locale) {
+    heading
+    description {
+      json
+    }
+  }
+}
+
+query GetContact($contactId: String!, $locale: String) {
+  contact(id: $contactId, locale: $locale) {
+    mainParagraph
+    contactSectionsCollection(locale: $locale) {
+      items {
+        ... on ContactSection {
+          heading
+          description {
+            json
+          }
+        }
       }
     }
   }

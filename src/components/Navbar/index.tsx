@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { GiHamburgerMenu } from 'react-icons/gi';
 import Link from 'next/link';
 import NavItem, { INavItem } from './partials/NavItem';
 import Icon from '@/ui/icon';
@@ -12,7 +11,7 @@ const Navbar = ({ navItems }: { navItems?: INavItem[] }) => {
   };
 
   return (
-    <nav className="mb-10 p-5 md:p-20 relative md:static flex items-center justify-between bg-black shadow-xl">
+    <nav className="mb-10 p-5 md:px-11 md:py-16 relative md:static flex items-center justify-between bg-black shadow-xl">
       <Link href="/" legacyBehavior>
         <a className="font-montserrat font-semibold text-2xl text-carrara">AFSAA</a>
       </Link>
@@ -22,7 +21,7 @@ const Navbar = ({ navItems }: { navItems?: INavItem[] }) => {
         ))}
       </div>
       <div className="md:hidden cursor-pointer" onClick={() => handleToggleMenu()}>
-        <Icon className="text-carrara" icon={<GiHamburgerMenu />} fontSize="25px" color="" />
+        <Icon className="text-carrara" icon="GiHamburgerMenu" fontSize="25px" color="" />
       </div>
     </nav>
   );
