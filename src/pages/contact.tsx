@@ -68,8 +68,8 @@ const contact = ({ navigationData, contactData }: InferGetStaticPropsType<typeof
             articleContent={
               <>
                 <p className="font-cabin text-center">{contactData.mainParagraph}</p>
-                {contactData.contactSectionsCollection.items.map((contactSection: ContactSection) => (
-                  <div key={contactSection.sys.id}>
+                {contactData.contactSectionsCollection.items.map((contactSection: ContactSection, index) => (
+                  <div key={index}>
                     <h2 className="text-2xl font-montserrat">{contactSection.heading}</h2>
                     {documentToReactComponents(contactSection.description.json)}
                   </div>
