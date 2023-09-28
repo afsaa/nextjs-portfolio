@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { Skill } from '../../generated/graphql';
-import { useTranslations } from '../../hooks';
 import SkillItem from './partials/SkillItem';
 
 interface ISkill {
@@ -11,12 +11,25 @@ interface ISkill {
 }
 
 const SkillComponent = ({ skills, hasHardSkills, hasSoftSkills, hasOtherSkills }: ISkill): JSX.Element => {
-  const translationsResponse = useTranslations('Skill');
-  const [labels, setLabels] = useState(async () => {
-    await translationsResponse.then((data) => {
-      setLabels(data);
-    });
-  });
+  const { locale } = useRouter();
+  const [labels, setLabels] = useState({});
+
+  const fetchTranslations = async (componentName: string) => {
+    try {
+      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
+      if (!labelsResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const labelsData = await labelsResponse.json();
+      return setLabels(labelsData);
+    } catch (error) {
+      console.error('Error fetching labels data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTranslations('Skill');
+  }, []);
 
   return (
     <>

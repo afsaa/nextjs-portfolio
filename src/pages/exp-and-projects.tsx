@@ -4,8 +4,8 @@ import { GetNavigationDocument, GetProjectsDocument, Project } from '../generate
 import { createApolloClient } from '../utils/apolloClient';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import ProjectCard from '../components/ProjectCard';
-import { useTranslations } from '../hooks';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 export const getStaticProps: GetStaticProps<{ projectsData: Project[]; navigationData: Navigation[] }> = async ({ locale }) => {
   try {
@@ -47,12 +47,25 @@ export const getStaticProps: GetStaticProps<{ projectsData: Project[]; navigatio
 };
 
 const ExperienceAndProjects = ({ projectsData, navigationData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const translationsResponse = useTranslations('Projects');
-  const [labels, setLabels] = useState(async () => {
-    await translationsResponse.then((data) => {
-      setLabels(data);
-    });
-  });
+  const { locale } = useRouter();
+  const [labels, setLabels] = useState({});
+
+  const fetchTranslations = async (componentName: string) => {
+    try {
+      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
+      if (!labelsResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const labelsData = await labelsResponse.json();
+      return setLabels(labelsData);
+    } catch (error) {
+      console.error('Error fetching labels data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTranslations('Projects');
+  }, []);
 
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Experience and best projects' }} navItems={navigationData}>

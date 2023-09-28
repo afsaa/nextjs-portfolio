@@ -1,16 +1,27 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ButtonLink from '@/ui/buttonLink';
-import { useTranslations } from '../../hooks';
 
 const TopArea = () => {
-  const translationsResponse = useTranslations('TopArea');
   const { locales, locale } = useRouter();
-  const [labels, setLabels] = useState(async () => {
-    await translationsResponse.then((data) => {
-      setLabels(data);
-    });
-  });
+  const [labels, setLabels] = useState({});
+
+  const fetchTranslations = async (componentName: string) => {
+    try {
+      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
+      if (!labelsResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const labelsData = await labelsResponse.json();
+      return setLabels(labelsData);
+    } catch (error) {
+      console.error('Error fetching labels data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTranslations('TopArea');
+  }, []);
 
   return (
     <div className="p-5 md:px-24 flex items-center justify-end gap-x-2 bg-black">
