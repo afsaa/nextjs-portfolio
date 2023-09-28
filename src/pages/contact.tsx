@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ContainerBlock from '../components/ContainerBlock';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { createApolloClient } from '../utils/apolloClient';
 import { Contact, ContactSection, GetContactDocument, GetNavigationDocument } from '../generated/graphql';
 import ArticleSection from '@/ui/articleSection';
-import { useTranslations } from '../hooks';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { INLINES } from '@contentful/rich-text-types';
+import { useRouter } from 'next/router';
 
 export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; contactData: Contact }> = async ({ locale }) => {
   try {
@@ -52,12 +51,25 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; cont
 };
 
 const contact = ({ navigationData, contactData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const translationsResponse = useTranslations('Contact');
-  const [labels, setLabels] = useState(async () => {
-    await translationsResponse.then((data) => {
-      setLabels(data);
-    });
-  });
+  const { locale } = useRouter();
+  const [labels, setLabels] = useState({});
+
+  const fetchTranslations = async (componentName: string) => {
+    try {
+      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
+      if (!labelsResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const labelsData = await labelsResponse.json();
+      return setLabels(labelsData);
+    } catch (error) {
+      console.error('Error fetching labels data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTranslations('Contact');
+  }, []);
 
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Contact' }} navItems={navigationData}>

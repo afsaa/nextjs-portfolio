@@ -1,9 +1,9 @@
 import Experience from './../Experience';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@/ui/button';
 import { Experience as ExpGenerated } from '../../generated/graphql';
 import Link from 'next/link';
-import { useTranslations } from '../../hooks';
+import { useRouter } from 'next/router';
 
 type experienceCardProps = {
   cvUrl?: string;
@@ -11,12 +11,25 @@ type experienceCardProps = {
 };
 
 const ExperiencesCard = ({ cvUrl, experiences }: experienceCardProps) => {
-  const translationsResponse = useTranslations('ExperiencesCard');
-  const [labels, setLabels] = useState(async () => {
-    await translationsResponse.then((data) => {
-      setLabels(data);
-    });
-  });
+  const { locale } = useRouter();
+  const [labels, setLabels] = useState({});
+
+  const fetchTranslations = async (componentName: string) => {
+    try {
+      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
+      if (!labelsResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const labelsData = await labelsResponse.json();
+      return setLabels(labelsData);
+    } catch (error) {
+      console.error('Error fetching labels data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTranslations('ExperiencesCard');
+  }, []);
 
   return (
     <div className="w-full md:w-1/2 lg:w-1/3 flex items-center justify-center">

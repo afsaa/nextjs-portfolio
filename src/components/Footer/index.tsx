@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
-import { useTranslations } from '../../hooks';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import NavItem, { INavItem } from '../Navbar/partials/NavItem';
 
 const Footer = ({ navItems }: { navItems?: INavItem[] }) => {
-  const translationsResponse = useTranslations('Footer');
-  const [labels, setLabels] = useState(async () => {
-    await translationsResponse.then((data) => {
-      setLabels(data);
-    });
-  });
+  const { locale } = useRouter();
+  const [labels, setLabels] = useState({});
+
+  const fetchTranslations = async (componentName: string) => {
+    try {
+      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
+      if (!labelsResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const labelsData = await labelsResponse.json();
+      return setLabels(labelsData);
+    } catch (error) {
+      console.error('Error fetching labels data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTranslations('Footer');
+  }, []);
 
   return (
     <div className="mt-10 p-5 md:px-11 md:py-16 flex flex-col md:flex-row justify-between bg-black shadow-xl">

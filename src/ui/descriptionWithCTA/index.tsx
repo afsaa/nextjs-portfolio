@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from '../button';
 import Icon from '@/ui/icon';
 import Link from 'next/link';
-import { useTranslations } from '../../hooks';
 
 interface IDescriptionWithCTA {
   fields?: {
@@ -17,13 +16,25 @@ interface IDescriptionWithCTA {
 }
 
 const DescriptionWithCTA = ({ fields, redirectUrl, linkedinUrl, githubUrl }: IDescriptionWithCTA) => {
-  const router = useRouter();
-  const translationsResponse = useTranslations('descriptionWithCTA');
-  const [labels, setLabels] = useState(async () => {
-    await translationsResponse.then((data) => {
-      setLabels(data);
-    });
-  });
+  const { push, locale } = useRouter();
+  const [labels, setLabels] = useState({});
+
+  const fetchTranslations = async (componentName: string) => {
+    try {
+      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
+      if (!labelsResponse.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const labelsData = await labelsResponse.json();
+      return setLabels(labelsData);
+    } catch (error) {
+      console.error('Error fetching labels data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTranslations('descriptionWithCTA');
+  }, []);
 
   return (
     <div className="w-full md:w-1/2 lg:w-2/3 p-0 md:pr-6 flex flex-col items-start justify-center">
@@ -40,7 +51,7 @@ const DescriptionWithCTA = ({ fields, redirectUrl, linkedinUrl, githubUrl }: IDe
           </Link>
         </div>
       )}
-      {!!fields && <Button text={labels['seeMore']} primary onClick={() => router.push(redirectUrl)} />}
+      {!!fields && <Button text={labels['seeMore']} primary onClick={() => push(redirectUrl)} />}
     </div>
   );
 };
