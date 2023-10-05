@@ -37,8 +37,8 @@ const SkillComponent = ({ skills, hasHardSkills, hasSoftSkills, hasOtherSkills }
         <div>
           <h2 className="text-2xl font-montserrat">{labels['hardSkillsHeading']}</h2>
           <div className="my-5 flex items-center justify-around md:justify-start flex-wrap gap-10">
-            {skills.map((skill) => {
-              return <SkillItem type="hard" name={skill.technology} />;
+            {skills.map((skill, index) => {
+              return <SkillItem key={skill?.sys?.id || index} type="hard" name={skill.technology} />;
             })}
           </div>
         </div>
