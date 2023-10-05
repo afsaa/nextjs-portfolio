@@ -71,8 +71,8 @@ const ExperienceAndProjects = ({ projectsData, navigationData }: InferGetStaticP
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Experience and best projects' }} navItems={navigationData}>
       <h1 className="mb-10 text-4xl text-center text-carrara font-montserrat">{labels['projectsHeading']}</h1>
       <div className="m-0 md:my-4 px-10 py-5 md:py-10 flex flex-wrap items-start justify-around gap-6 md:gap-8">
-        {projectsData.map((project) => {
-          return <ProjectCard {...project} />;
+        {projectsData.map((project, index) => {
+          return <ProjectCard key={project?.sys?.id || index} {...project} />;
         })}
       </div>
     </ContainerBlock>

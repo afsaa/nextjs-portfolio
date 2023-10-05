@@ -17,8 +17,8 @@ function ContainerBlock({ children, navItems, ...customMeta }: IContainerBlock) 
   const router = useRouter();
 
   const meta = {
-    title: 'Andres Fernando Saa - Frontend Developer, Personal Finance Enthusiast',
-    description: `I've been developing websites and web apps for 3 years straight. Get in touch with me to know more.`,
+    title: 'Andres Fernando Saa | Expert Frontend Developer Portfolio',
+    description: `Explore the impressive frontend development portfolio of Andres Fernando Saa, a skilled and innovative developer specialized in crafting seamless web experiences. Perfect for IT recruiters seeking a top-tier talent for their projects. Check out my work now!`,
     image: '/avatar.png',
     type: 'website',
     ...customMeta,
@@ -29,8 +29,8 @@ function ContainerBlock({ children, navItems, ...customMeta }: IContainerBlock) 
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
-        <meta property="og:url" content={`https://andresfernandosaa.com${router.asPath}`} />
-        <link rel="canonical" href={`https://andresfernandosaa.com${router.asPath}`} />
+        <meta property="og:url" content={`https://www.saacodes.com/${router.asPath}`} />
+        <link rel="canonical" href={`https://www.saacodes.com/${router.asPath}`} />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content="Andres Fernando Saa" />
         <meta property="og:description" content={meta.description} />
