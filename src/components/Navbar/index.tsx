@@ -15,10 +15,12 @@ const Navbar = ({ navItems }: { navItems?: INavItem[] }) => {
       <Link href="/" legacyBehavior>
         <a className="font-montserrat font-semibold text-2xl text-carrara">AFSAA</a>
       </Link>
-      <div className={`${toggleMenu === false && 'hidden'} w-1/3 md:w-auto absolute md:static top-full left-2/3 md:flex transition-all bg-black`}>
-        {navItems?.map(({ sys, title, pathname }) => (
-          <NavItem key={sys?.id} title={title} pathname={pathname} />
-        ))}
+      <div>
+        <ul className={`${toggleMenu === false && 'hidden'} w-1/3 md:w-auto absolute md:static top-full left-2/3 md:flex transition-all bg-black`}>
+          {navItems?.map(({ sys, title, pathname }) => (
+            <NavItem key={sys?.id} title={title} pathname={pathname} />
+          ))}
+        </ul>
       </div>
       <div className="md:hidden cursor-pointer" onClick={() => handleToggleMenu()}>
         <Icon className="text-carrara" icon="GiHamburgerMenu" fontSize="25px" color="" />
