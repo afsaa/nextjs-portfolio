@@ -38,7 +38,7 @@ const SkillComponent = ({ skills, hasHardSkills, hasSoftSkills, hasOtherSkills }
           <h2 className="text-2xl font-montserrat">{labels['hardSkillsHeading']}</h2>
           <div className="my-5 flex items-center justify-around md:justify-start flex-wrap gap-10">
             {skills.map((skill, index) => {
-              return <SkillItem key={skill?.sys?.id || index} type="hard" name={skill.technology} />;
+              return <SkillItem key={skill?.sys?.id || `${skill.technology}-${index}`} type="hard" name={skill.technology} />;
             })}
           </div>
         </div>
@@ -47,8 +47,8 @@ const SkillComponent = ({ skills, hasHardSkills, hasSoftSkills, hasOtherSkills }
         <div>
           <h2 className="text-2xl font-montserrat">{labels['softSkillsHeading']}</h2>
           <div className="my-5 flex md:flex-row flex-col items-center justify-start gap-10 font-cabin">
-            {skills.map((skill) => {
-              return <SkillItem type="soft" name={skill.technology} />;
+            {skills.map((skill, index) => {
+              return <SkillItem key={skill?.sys?.id || `${skill.technology}-${index}`} type="soft" name={skill.technology} />;
             })}
           </div>
         </div>
@@ -57,8 +57,8 @@ const SkillComponent = ({ skills, hasHardSkills, hasSoftSkills, hasOtherSkills }
         <div>
           <h2 className="text-2xl font-montserrat"> {labels['otherSkillsHeading']}</h2>
           <div className="my-5 flex md:flex-row flex-col items-center justify-start gap-10 font-cabin">
-            {skills.map((skill) => {
-              return <SkillItem type="other" name={skill.technology} />;
+            {skills.map((skill, index) => {
+              return <SkillItem key={skill?.sys?.id || `${skill.technology}-${index}`} type="other" name={skill.technology} />;
             })}
           </div>
         </div>
