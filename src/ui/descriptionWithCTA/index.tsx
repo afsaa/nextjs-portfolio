@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import Button from '../button';
 import Icon from '@/ui/icon';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import Button from '../button';
 
 interface IDescriptionWithCTA {
   fields?: {
