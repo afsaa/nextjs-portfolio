@@ -1,14 +1,13 @@
-import React from 'react';
-import { IButton } from '../button';
+import { ButtonProps } from '../button';
 
-interface IButtonLink extends IButton {
+interface IButtonLink extends ButtonProps {
   active: boolean;
 }
 
-const ButtonLink = ({ type, text, active, onClick }: IButtonLink) => {
+const ButtonLink = ({ type, content, active, onClick }: IButtonLink) => {
   return (
     <button className="bg-transparent" type={type} onClick={onClick}>
-      <p className={`p-2 ${active ? 'font-normal' : 'font-bold'} ${active ? 'outline-none' : 'ring-2 ring-carrara'} font-cabin text-white`}>{text.toLocaleUpperCase()}</p>
+      <p className={`p-2 ${active ? 'font-normal' : 'font-bold'} ${active ? 'outline-none' : 'ring-2 ring-carrara'} font-cabin text-white`}>{content.toLocaleUpperCase()}</p>
     </button>
   );
 };

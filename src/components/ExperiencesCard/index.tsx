@@ -1,9 +1,9 @@
-import Experience from './../Experience';
-import React, { useEffect, useState } from 'react';
 import Button from '@/ui/button';
-import { Experience as ExpGenerated } from '../../generated/graphql';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { Experience as ExpGenerated } from '../../generated/graphql';
+import Experience from './../Experience';
 
 type experienceCardProps = {
   cvUrl?: string;
@@ -42,7 +42,7 @@ const ExperiencesCard = ({ cvUrl, experiences }: experienceCardProps) => {
           <div className="mt-4">
             {cvUrl?.length > 0 && (
               <Link href={cvUrl} target="_blank">
-                <Button primary size="full" text={labels['downloadCV']} />
+                <Button primary size="full" content={labels['downloadCV']} />
               </Link>
             )}
           </div>
