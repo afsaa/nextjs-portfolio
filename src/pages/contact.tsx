@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import ContainerBlock from '../components/ContainerBlock';
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { createApolloClient } from '../utils/apolloClient';
-import { Contact, ContactSection, GetContactDocument, GetNavigationDocument } from '../generated/graphql';
 import ArticleSection from '@/ui/articleSection';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import ContainerBlock from '../components/ContainerBlock';
+import { Contact, ContactSection, GetContactDocument, GetNavigationDocument } from '../generated/graphql';
+import { createApolloClient } from '../utils/apolloClient';
 
 export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; contactData: Contact }> = async ({ locale }) => {
   try {
@@ -73,7 +73,7 @@ const contact = ({ navigationData, contactData }: InferGetStaticPropsType<typeof
 
   return (
     <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Contact' }} navItems={navigationData}>
-      <div className="md:h-[calc(100vh-508px)] h-auto flex flex-col items-start  gap-4">
+      <div className="md:h-[calc(100vh-250px)] h-auto flex flex-col items-start gap-4">
         <div className="w-full">
           <ArticleSection
             sectionHeading={labels['contactHeading']}
