@@ -51,7 +51,7 @@ const DescriptionWithCTA = ({ fields, redirectUrl, linkedinUrl, githubUrl }: IDe
           </Link>
         </div>
       )}
-      {!!fields && <Button text={labels['seeMore']} primary onClick={() => push(redirectUrl)} />}
+      {!!fields && <Button content={labels['seeMore']} primary onClick={() => push(redirectUrl)} />}
     </div>
   );
 };
