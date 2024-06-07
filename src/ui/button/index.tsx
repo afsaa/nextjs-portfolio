@@ -1,6 +1,7 @@
 import React from 'react';
 
-interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  type?: 'submit' | 'reset' | 'button';
   primary?: boolean;
   size?: 'full';
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
