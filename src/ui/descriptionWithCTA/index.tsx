@@ -1,7 +1,7 @@
+import { useTranslations } from '@/hooks';
 import Icon from '@/ui/icon';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import Button from '../button';
 
 interface IDescriptionWithCTA {
@@ -16,25 +16,8 @@ interface IDescriptionWithCTA {
 }
 
 const DescriptionWithCTA = ({ fields, redirectUrl, linkedinUrl, githubUrl }: IDescriptionWithCTA) => {
-  const { push, locale } = useRouter();
-  const [labels, setLabels] = useState({});
-
-  const fetchTranslations = async (componentName: string) => {
-    try {
-      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
-      if (!labelsResponse.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const labelsData = await labelsResponse.json();
-      return setLabels(labelsData);
-    } catch (error) {
-      console.error('Error fetching labels data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTranslations('descriptionWithCTA');
-  }, []);
+  const { push } = useRouter();
+  const { labels } = useTranslations('descriptionWithCTA');
 
   return (
     <div className="w-full md:w-1/2 lg:w-2/3 p-0 md:pr-6 flex flex-col items-start justify-center">
@@ -51,7 +34,7 @@ const DescriptionWithCTA = ({ fields, redirectUrl, linkedinUrl, githubUrl }: IDe
           </Link>
         </div>
       )}
-      {!!fields && <Button content={labels['seeMore']} primary onClick={() => push(redirectUrl)} />}
+      {!!fields && redirectUrl && <Button content={labels['seeMore']} primary onClick={() => push(redirectUrl)} />}
     </div>
   );
 };

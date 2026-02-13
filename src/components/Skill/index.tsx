@@ -1,5 +1,4 @@
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { useTranslations } from '@/hooks';
 import { Skill } from '../../generated/graphql';
 import SkillItem from './partials/SkillItem';
 
@@ -11,25 +10,7 @@ interface ISkill {
 }
 
 const SkillComponent = ({ skills, hasHardSkills, hasSoftSkills, hasOtherSkills }: ISkill): JSX.Element => {
-  const { locale } = useRouter();
-  const [labels, setLabels] = useState({});
-
-  const fetchTranslations = async (componentName: string) => {
-    try {
-      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
-      if (!labelsResponse.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const labelsData = await labelsResponse.json();
-      return setLabels(labelsData);
-    } catch (error) {
-      console.error('Error fetching labels data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTranslations('Skill');
-  }, []);
+  const { labels } = useTranslations('Skill');
 
   return (
     <>
@@ -38,7 +19,7 @@ const SkillComponent = ({ skills, hasHardSkills, hasSoftSkills, hasOtherSkills }
           <h2 className="text-2xl font-montserrat">{labels['hardSkillsHeading']}</h2>
           <div className="my-5 flex items-center justify-around md:justify-start flex-wrap gap-10">
             {skills.map((skill, index) => {
-              return <SkillItem key={skill?.sys?.id || `${skill.technology}-${index}`} type="hard" name={skill.technology} />;
+              return <SkillItem key={skill?.sys?.id || `${skill.technology || 'skill'}-${index}`} type="hard" name={skill.technology || ''} />;
             })}
           </div>
         </div>
@@ -48,7 +29,7 @@ const SkillComponent = ({ skills, hasHardSkills, hasSoftSkills, hasOtherSkills }
           <h2 className="text-2xl font-montserrat">{labels['softSkillsHeading']}</h2>
           <div className="my-5 flex md:flex-row flex-col items-center justify-start gap-10 font-cabin">
             {skills.map((skill, index) => {
-              return <SkillItem key={skill?.sys?.id || `${skill.technology}-${index}`} type="soft" name={skill.technology} />;
+              return <SkillItem key={skill?.sys?.id || `${skill.technology || 'skill'}-${index}`} type="soft" name={skill.technology || ''} />;
             })}
           </div>
         </div>
@@ -58,7 +39,7 @@ const SkillComponent = ({ skills, hasHardSkills, hasSoftSkills, hasOtherSkills }
           <h2 className="text-2xl font-montserrat"> {labels['otherSkillsHeading']}</h2>
           <div className="my-5 flex md:flex-row flex-col items-center justify-start gap-10 font-cabin">
             {skills.map((skill, index) => {
-              return <SkillItem key={skill?.sys?.id || `${skill.technology}-${index}`} type="other" name={skill.technology} />;
+              return <SkillItem key={skill?.sys?.id || `${skill.technology || 'skill'}-${index}`} type="other" name={skill.technology || ''} />;
             })}
           </div>
         </div>

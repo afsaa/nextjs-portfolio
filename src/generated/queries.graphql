@@ -125,3 +125,104 @@ query GetContact($contactId: String!, $locale: String) {
     }
   }
 }
+
+query GetHomePageData($locale: String, $userId: String!, $previewId: String!, $personId: String!) {
+  navigationCollection(order: sys_publishedAt_ASC, locale: $locale) {
+    items {
+      sys {
+        id
+      }
+      title
+      pathname
+    }
+  }
+  user(id: $userId, locale: $locale) {
+    name
+    role
+    summary
+    profilePicture {
+      title
+      url
+    }
+    cv {
+      url
+    }
+  }
+  preview(id: $previewId, locale: $locale) {
+    experienceHeading
+    experienceDescription
+  }
+  experienceCollection(order: sys_firstPublishedAt_ASC, locale: $locale) {
+    items {
+      sys {
+        id
+        publishedAt
+      }
+      contentfulMetadata {
+        tags {
+          id
+          name
+        }
+      }
+      jobTitle
+      companyName
+      description {
+        json
+      }
+      timeWorked
+      companyLogo {
+        url
+      }
+    }
+  }
+  personalInfo(id: $personId, locale: $locale) {
+    sys {
+      id
+    }
+    title
+    name
+    headshot {
+      url
+    }
+    bio
+    location
+    email
+    linkedin
+    github
+  }
+}
+
+query GetAboutPageData($locale: String, $personId: String!) {
+  navigationCollection(order: sys_publishedAt_ASC, locale: $locale) {
+    items {
+      sys {
+        id
+      }
+      title
+      pathname
+    }
+  }
+  personalInfo(id: $personId, locale: $locale) {
+    sys {
+      id
+    }
+    title
+    name
+    headshot {
+      url
+    }
+    bio
+    location
+    email
+    linkedin
+    github
+  }
+  skillCollection(locale: $locale) {
+    items {
+      technology
+      isHardSkill
+      isOtherSkill
+      isSoftSkill
+    }
+  }
+}

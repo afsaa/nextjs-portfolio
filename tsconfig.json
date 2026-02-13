@@ -7,13 +7,16 @@
       "@/components/*": ["components/*"],
       "@/pages/*": ["pages/*"],
       "@/api/*": ["api/*"],
-      "@/utils/*": ["utils/*"]
+      "@/utils/*": ["utils/*"],
+      "@/hooks": ["hooks/index.ts"],
+      "@/hooks/*": ["hooks/*"],
+      "@/context/*": ["context/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,

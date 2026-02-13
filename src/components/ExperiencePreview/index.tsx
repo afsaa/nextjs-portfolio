@@ -1,33 +1,16 @@
 import Button from '@/ui/button';
 import Markdown from 'markdown-to-jsx';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useTranslations } from '@/hooks';
 
 interface IExperiencePreview {
-  heading: string;
-  description: string;
+  heading?: string;
+  description?: string;
 }
 
 const ExperiencePreview = ({ heading, description }: IExperiencePreview) => {
-  const { push, locale } = useRouter();
-  const [labels, setLabels] = useState({});
-
-  const fetchTranslations = async (componentName: string) => {
-    try {
-      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
-      if (!labelsResponse.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const labelsData = await labelsResponse.json();
-      return setLabels(labelsData);
-    } catch (error) {
-      console.error('Error fetching labels data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTranslations('ExperiencePreview');
-  }, []);
+  const { push } = useRouter();
+  const { labels } = useTranslations('ExperiencePreview');
 
   return (
     <section className="w-full md:w-1/2 lg:w-2/3 p-0 md:pr-10 flex flex-col items-center justify-evenly">
