@@ -152,7 +152,7 @@ query GetHomePageData($locale: String, $userId: String!, $previewId: String!, $p
     experienceHeading
     experienceDescription
   }
-  experienceCollection(order: sys_firstPublishedAt_ASC, locale: $locale) {
+  experienceCollection(order: sys_publishedAt_DESC, locale: $locale) {
     items {
       sys {
         id
