@@ -20,7 +20,7 @@ interface HomePageProps {
 export const getStaticProps: GetStaticProps<HomePageProps> = async ({ locale }) => {
   try {
     const client = createApolloClient();
-    
+
     // Fetch all home page data in a single batched query
     const response = await client.query({
       query: GetHomePageDataDocument,
@@ -89,12 +89,17 @@ export default function Home({ navigationData, userData, expPreviewData, expsDat
         onError={() => <ErrorContainer />}
         render={() => (
           <>
-            <DescriptionWithCTA fields={userData ? { name: userData.name || undefined, role: userData.role || undefined, summary: userData.summary || undefined } : undefined} redirectUrl="/about" linkedinUrl={personalInfoData?.linkedin || undefined} githubUrl={personalInfoData?.github || undefined} />
+            <DescriptionWithCTA
+              fields={userData ? { name: userData.name || undefined, role: userData.role || undefined, summary: userData.summary || undefined } : undefined}
+              redirectUrl="/about"
+              linkedinUrl={personalInfoData?.linkedin || undefined}
+              githubUrl={personalInfoData?.github || undefined}
+            />
             <ImageContainer profilePicture={userData?.profilePicture ? { url: userData.profilePicture.url || undefined, description: userData.profilePicture.description || undefined } : undefined} />
           </>
         )}
       />
-      <div className="my-4 md:my-10 px-10 flex flex-wrap gap-6 md:gap-0">
+      <div className="my-4 md:my-10 px-10 py-12 flex flex-wrap gap-6 md:gap-0">
         <ExperiencePreview heading={expPreviewData?.experienceHeading || ''} description={expPreviewData?.experienceDescription || ''} />
         <ExperiencesCard cvUrl={userData?.cv?.url || undefined} experiences={expsData} />
       </div>
