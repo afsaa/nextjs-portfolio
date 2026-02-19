@@ -1,7 +1,7 @@
+import { useTranslations } from '@/hooks';
 import Button from '@/ui/button';
 import Markdown from 'markdown-to-jsx';
 import { useRouter } from 'next/router';
-import { useTranslations } from '@/hooks';
 
 interface IExperiencePreview {
   heading?: string;
@@ -23,7 +23,7 @@ const ExperiencePreview = ({ heading, description }: IExperiencePreview) => {
         </div>
       </article>
       <div className="my-5 flex items-center justify-center">
-        <Button primary content={labels['seeMore']} onClick={() => push('/exp-and-projects')} />
+        <Button primary content={labels['exploreProjects']} onClick={() => push('/exp-and-projects')} />
       </div>
     </section>
   );
