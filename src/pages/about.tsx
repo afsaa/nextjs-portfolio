@@ -1,43 +1,46 @@
 import ContainerBlock from '@/components/ContainerBlock';
+import { useTranslations } from '@/hooks';
 import ArticleSection from '@/ui/articleSection';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { createApolloClient } from '../utils/apolloClient';
-import { GetAllSkillsDocument, GetNavigationDocument, GetPersonalInfoDocument, PersonalInfo, Skill } from '../generated/graphql';
 import SkillComponent from '../components/Skill';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { GetAboutPageDataDocument, Navigation, PersonalInfo, Skill } from '../generated/graphql';
+import { createApolloClient } from '../utils/apolloClient';
 
-export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; personalInfoData: PersonalInfo; skillsData: Skill[] }> = async ({ locale }) => {
+interface AboutPageProps {
+  navigationData: Navigation[];
+  personalInfoData: PersonalInfo | null;
+  skillsData: Skill[];
+}
+
+export const getStaticProps: GetStaticProps<AboutPageProps> = async ({ locale }) => {
   try {
     const client = createApolloClient();
-    const navigationResponse = await client.query({
-      query: GetNavigationDocument,
-      variables: { locale },
+    
+    // Fetch all about page data in a single batched query
+    const response = await client.query({
+      query: GetAboutPageDataDocument,
+      variables: {
+        locale,
+        personId: '6n1bd6LTg3WLomldFn08aR',
+      },
     });
 
-    const personalInfoResponse = await client.query({
-      query: GetPersonalInfoDocument,
-      variables: { personId: '6n1bd6LTg3WLomldFn08aR', locale },
-    });
-
-    const skillsResponse = await client.query({
-      query: GetAllSkillsDocument,
-      variables: { locale },
-    });
-
-    if (navigationResponse.data.navigationCollection === null) {
+    if (response.data.navigationCollection === null) {
       throw new Error('Failed to fetch navigation');
     }
-    if (personalInfoResponse.data === null) {
+    if (!response.data.navigationCollection) {
+      throw new Error('Failed to fetch navigation');
+    }
+    if (response.data.personalInfo === null) {
       throw new Error('Failed to fetch personal info');
     }
-    if (skillsResponse.data.skillCollection === null) {
+    if (response.data.skillCollection === null) {
       throw new Error('Failed to fetch skills');
     }
 
-    const navigationData = navigationResponse.data.navigationCollection.items as Navigation[];
-    const personalInfoData = personalInfoResponse.data.personalInfo as PersonalInfo;
-    const skillsData = skillsResponse.data.skillCollection.items as Skill[];
+    const navigationData = (response.data.navigationCollection?.items || []) as Navigation[];
+    const personalInfoData = response.data.personalInfo as PersonalInfo;
+    const skillsData = (response.data.skillCollection?.items || []) as Skill[];
 
     return {
       props: {
@@ -47,6 +50,7 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; pers
       },
     };
   } catch (error) {
+    console.error('Error fetching about page data:', error);
     return {
       props: {
         navigationData: [],
@@ -61,29 +65,14 @@ const about = ({ navigationData, personalInfoData, skillsData }: InferGetStaticP
   const hardSkills: Skill[] = skillsData.filter((skill) => skill.isHardSkill === true);
   const softSkills: Skill[] = skillsData.filter((skill) => skill.isSoftSkill === true);
   const otherSkills: Skill[] = skillsData.filter((skill) => skill.isOtherSkill === true);
-  const { locale } = useRouter();
-  const [labels, setLabels] = useState({});
+  const { labels } = useTranslations('About');
 
-  const fetchTranslations = async (componentName: string) => {
-    try {
-      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
-      if (!labelsResponse.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const labelsData = await labelsResponse.json();
-      return setLabels(labelsData);
-    } catch (error) {
-      console.error('Error fetching labels data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTranslations('About');
-  }, []);
+  // Filter out navigation items with invalid paths
+  const validNavItems = navigationData.filter((item) => item.pathname);
 
   return (
-    <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - About' }} navItems={navigationData}>
-      <ArticleSection sectionHeading={labels['aboutMeHeading']} articleText={personalInfoData.bio} />
+    <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - About' }} navItems={validNavItems as any}>
+      <ArticleSection sectionHeading={labels['aboutMeHeading']} articleText={personalInfoData?.bio || ''} />
       <ArticleSection
         sectionHeading={labels['skillsHeading']}
         articleContent={

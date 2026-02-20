@@ -1,23 +1,5 @@
-import { useRouter } from 'next/router';
-import { createContext, useContext } from 'react';
+// Re-export useTranslations from TranslationContext
+// This hook fetches and caches component translations
+// Usage: const { labels, locale } = useTranslations('ComponentName');
 
-export const useTranslations = async (componentName: string) => {
-  const { locale } = useRouter();
-  const localeContext = createContext({
-    getCurrentLocale() {
-      return locale;
-    },
-    labels: {
-      async get(locale: string, componentName?: string) {
-        const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
-        const labels = await labelsResponse.json();
-        return labels;
-      },
-    },
-  });
-
-  const context = useContext(localeContext);
-  const currentLocale = context.getCurrentLocale();
-  const labels = await context.labels.get(currentLocale, componentName);
-  return labels;
-};
+export { useTranslations } from '@/context/TranslationContext';

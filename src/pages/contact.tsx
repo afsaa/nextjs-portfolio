@@ -1,13 +1,17 @@
+import { useTranslations } from '@/hooks';
 import ArticleSection from '@/ui/articleSection';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import ContainerBlock from '../components/ContainerBlock';
-import { Contact, ContactSection, GetContactDocument, GetNavigationDocument } from '../generated/graphql';
+import { Contact, GetContactDocument, GetNavigationDocument, Navigation } from '../generated/graphql';
 import { createApolloClient } from '../utils/apolloClient';
 
-export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; contactData: Contact }> = async ({ locale }) => {
+interface ContactPageProps {
+  navigationData: Navigation[];
+  contactData: Contact | null;
+}
+
+export const getStaticProps: GetStaticProps<ContactPageProps> = async ({ locale }) => {
   try {
     const client = createApolloClient();
 
@@ -21,16 +25,15 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; cont
       variables: { contactId: 'Giej5xkiHd6hOM1VZxy31', locale },
     });
 
-    if (navigationResponse.data.navigationCollection === null) {
+    if (!navigationResponse.data.navigationCollection) {
       throw new Error('Failed to fetch navigation');
     }
 
-    if (contactResponse.data.contact === null) {
+    if (!contactResponse.data.contact) {
       throw new Error('Failed to fetch contact data');
     }
 
-    const navigationData = navigationResponse.data.navigationCollection.items as Navigation[];
-
+    const navigationData = (navigationResponse.data.navigationCollection.items || []) as Navigation[];
     const contactData = contactResponse.data.contact as Contact;
 
     return {
@@ -40,7 +43,7 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; cont
       },
     };
   } catch (error) {
-    console.log(error);
+    console.error('Error fetching contact page data:', error);
     return {
       props: {
         navigationData: [],
@@ -51,36 +54,21 @@ export const getStaticProps: GetStaticProps<{ navigationData: Navigation[]; cont
 };
 
 const contact = ({ navigationData, contactData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { locale } = useRouter();
-  const [labels, setLabels] = useState({});
+  const { labels } = useTranslations('Contact');
 
-  const fetchTranslations = async (componentName: string) => {
-    try {
-      const labelsResponse = await fetch(`/api/staticdata?locale=${locale}&componentName=${componentName}`);
-      if (!labelsResponse.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const labelsData = await labelsResponse.json();
-      return setLabels(labelsData);
-    } catch (error) {
-      console.error('Error fetching labels data:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTranslations('Contact');
-  }, []);
+  // Filter out navigation items with invalid paths
+  const validNavItems = navigationData.filter((item) => item.pathname);
 
   return (
-    <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Contact' }} navItems={navigationData}>
+    <ContainerBlock customMeta={{ title: 'Andres Fernando Saa - Contact' }} navItems={validNavItems as any}>
       <div className="md:h-[calc(100vh-250px)] h-auto flex flex-col items-start gap-4">
         <div className="w-full">
           <ArticleSection
             sectionHeading={labels['contactHeading']}
             articleContent={
               <>
-                <p className="font-cabin text-center">{contactData.mainParagraph}</p>
-                {contactData.contactSectionsCollection.items.map((contactSection: ContactSection, index) => (
+                <p className="font-cabin text-center">{contactData?.mainParagraph || ''}</p>
+                {contactData?.contactSectionsCollection?.items?.map((contactSection: any, index: number) => (
                   <div key={index}>
                     <h2 className="text-2xl font-montserrat">{contactSection.heading}</h2>
                     {documentToReactComponents(contactSection.description.json)}

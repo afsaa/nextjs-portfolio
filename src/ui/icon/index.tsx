@@ -1,8 +1,7 @@
-import React from 'react';
 import { IconContext, IconType } from 'react-icons';
-import * as siIcons from 'react-icons/si';
-import * as giIcons from 'react-icons/gi';
 import * as biIcons from 'react-icons/bi';
+import * as giIcons from 'react-icons/gi';
+import * as siIcons from 'react-icons/si';
 
 const allIcons = { ...siIcons, ...giIcons, ...biIcons };
 
@@ -14,7 +13,7 @@ type IconProps = {
 };
 
 const Icon = ({ className, icon, fontSize = '20px', color = 'black' }: IconProps): JSX.Element => {
-  const ReactIcon: IconType = allIcons[icon];
+  const ReactIcon: IconType = (allIcons as Record<string, IconType>)[icon];
 
   return (
     <div className={`flex items-center space-x-2 ${className ? className : ''}`}>

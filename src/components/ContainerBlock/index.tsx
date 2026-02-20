@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { ReactNode } from 'react';
 
 import Navbar from '@/components/Navbar';
+import Footer from '../Footer';
 import { INavItem } from '../Navbar/partials/NavItem';
 import TopArea from '../TopArea';
-import Footer from '../Footer';
 
 interface IContainerBlock {
   children: ReactNode;
@@ -17,7 +17,7 @@ function ContainerBlock({ children, navItems, ...customMeta }: IContainerBlock) 
   const router = useRouter();
 
   const meta = {
-    title: 'Andres Fernando Saa | Expert Frontend Developer Portfolio',
+    title: 'Andres Saa | Frontend/Fullstack Engineer Portfolio',
     description: `Explore the impressive frontend development portfolio of Andres Fernando Saa, a skilled and innovative developer specialized in crafting seamless web experiences. Perfect for IT recruiters seeking a top-tier talent for their projects. Check out my work now!`,
     image: '/avatar.png',
     type: 'website',
